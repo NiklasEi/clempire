@@ -1,14 +1,15 @@
 class Clempire {
   constructor() {
     this.load = new Promise(function (resolve, reject) {
-      let now = new Date();
-      console.log("Loading data...");
+      let now = (new Date).getTime();
       this.loadData().then(function () {
         this.resources = {};
         for (let resource in this.resourcesData) {
           this.resources[resource] = 0;
         }
-        console.log(`... done in ${(new Date()).getMilliseconds() - now.getMilliseconds()}ms`);
+        console.log(this.now)
+        console.log(new Date())
+        console.log(`... done in ${((new Date()).getTime() - now)}ms`);
         resolve()
       }.bind(this));
     }.bind(this));

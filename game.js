@@ -35,7 +35,7 @@ class Clempire {
     // called for a click on a resource field.
     // this is binded to the clicked resource object
     session.game.resources[this.id]++;
-    this.audio.currentTime = 0;
+    this.audio.load();
     this.audio.play();
   }
 }

@@ -1,0 +1,7 @@
+# Clempire
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9846d642-5a07-4dee-9129-7846d70d8dd2/deploy-status)](https://app.netlify.com/sites/clempire/deploys) [![Play](https://img.shields.io/badge/Play-online-blue.svg)](https://clempire.nikl.me)
+
+**`An idle game written in HTML5`**
+
+Clempire lets you gather resources, build up an empire, improve your resource collecting and make progress through technologies and achievements.

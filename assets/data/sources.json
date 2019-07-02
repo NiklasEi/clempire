@@ -2,11 +2,13 @@
   {
     "img": "/assets/images/Tree.png",
     "sound": "/assets/sounds/axe-sound.ogg",
-    "id": "wood"
+    "id": "wood",
+    "cursor": "/assets/images/axe.png"
   },
   {
     "img": "/assets/images/stone.png",
     "sound": "/assets/sounds/pick-axe.ogg",
-    "id": "stone"
+    "id": "stone",
+    "cursor": "/assets/images/pick-axe.png"
   }
 ]

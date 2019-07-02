@@ -86,8 +86,6 @@ class Session {
   placeResourceAnchors() {
     let count = 1;
     let length = this.game.sourcesData.length;
-    let field = document.createElement("div");
-    field.classList.add("resource-field");
     let anchors = document.getElementById("anchors");
     while (anchors.firstChild) {
       anchors.removeChild(anchors.firstChild);
@@ -98,7 +96,10 @@ class Session {
       anchor.setAttribute("data-source-field", count.toString());
       anchor.style.top = `${(100 / (length + 1)) * count}%`;
       anchor.style.left = "50%";
-      anchor.appendChild(field.cloneNode());
+      let field = document.createElement("div");
+      field.classList.add("resource-field");
+      field.style.cursor = `url(${this.game.sourcesData[source].cursor}), pointer`
+      anchor.appendChild(field);
       anchors.appendChild(anchor);
       count++;
     }

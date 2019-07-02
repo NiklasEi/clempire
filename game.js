@@ -21,14 +21,10 @@ class Clempire {
     let loadingBuildings = fetch("/assets/data/buildings.json")
       .catch(e => console.log(e))
       .then(response => response.json());
-    [this.resourcesData, this.buildingsData] = await Promise.all([loadingResources, loadingBuildings]);
-    this.sourcesData = {
-      wood: {
-        img: "/assets/images/Tree.png",
-        sound: "/assets/sounds/axe-sound.ogg",
-        id: "wood"
-      }
-    }
+    let loadingSources = fetch("/assets/data/sources.json")
+      .catch(e => console.log(e))
+      .then(response => response.json());
+    [this.resourcesData, this.buildingsData, this.sourcesData] = await Promise.all([loadingResources, loadingBuildings, loadingSources]);
     for (let source in this.sourcesData) {
       this.sourcesData[source].audio = new Audio(this.sourcesData[source].sound);
       this.sourcesData[source].audio.load();
@@ -38,7 +34,7 @@ class Clempire {
   fieldClick() {
     // called for a click on a resource field.
     // this is binded to the clicked resource object
-    session.game.resources[this.id] ++;
+    session.game.resources[this.id]++;
     this.audio.currentTime = 0;
     this.audio.play();
   }

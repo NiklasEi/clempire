@@ -9,29 +9,32 @@ class Session {
   initialize() {
     this.game = new Clempire();
     this.game.load.then(function () {
-      window.addEventListener('resize', this.handleResize
-        .bind({
-          session: this,
-          // wait 100ms for further resizing 
-          delta: 100,
-          timeout: false
-        }), true);
+      window.addEventListener('resize', this.resizeHandler(), true);
       this.drawGame();
       this.displayResources();
       this.startGame();
     }.bind(this));
   }
 
-  handleResize() {
-    // this.session holds the current session, otherwise own this obj
-    this.rtime = new Date();
-    if (!this.timeout) {
-      this.timeout = true;
-      setTimeout(this.session.resizeEnd.bind(this), this.delta);
+  resizeHandler() {
+    let context = {
+      session: this,
+      // wait 100ms for further resizing 
+      delta: 100,
+      timeout: false
+    }
+    return function() {
+      console.log(context)
+      context.rtime = new Date();
+      if (!context.timeout) {
+        context.timeout = true;
+        setTimeout(context.session.resizeEnd.bind(context), context.delta);
+      }
     }
   }
 
   resizeEnd() {
+    console.log(this)
     if (new Date() - this.rtime < this.delta) {
       setTimeout(this.session.resizeEnd.bind(this), this.delta);
     } else {
@@ -127,7 +130,7 @@ class Session {
   updateResources() {
     for (let i = 0; i < this.resourcesDisplay.children.length; i++) {
       let resourceDisplay = this.resourcesDisplay.children[i];
-      resourceDisplay.getElementsByTagName("span")[0].innerText = this.game.resources[resourceDisplay.dataset.resource];
+      resourceDisplay.getElementsByTagName("span")[0].innerText = this.game.resources.current[resourceDisplay.dataset.resource];
     }
   }
 }

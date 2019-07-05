@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -57,19 +58,20 @@ footer .column {
 }
 
 #left-side .resource-field-anchor {
-	position: absolute;
+  position: absolute;
 }
 
 #left-side .resource-field {
-	width: 170px;
-	height: 170px;
-	position: absolute;
-	left: -85px;
-	top: -85px;
-	background: url(/assets/images/empty.png);/* somehow necessary; an empty div with no background seems to be click-through */
-	cursor: pointer;
-	z-index: 10000;
-	border-radius: 85px;
+  width: 170px;
+  height: 170px;
+  position: absolute;
+  left: -85px;
+  top: -85px;
+  background: url(/assets/images/empty.png);
+  /* somehow necessary; an empty div with no background seems to be click-through */
+  cursor: pointer;
+  z-index: 10000;
+  border-radius: 85px;
 }
 
 #resources ul {
@@ -88,18 +90,29 @@ footer .column {
   width: 100%;
 }
 
-#resources li > div,
-#resources li > span {
+#resources li>div,
+#resources li>span {
   margin: auto 0;
 }
 
-#resources li > span {
+#resources li>span {
   padding: 0 5px;
 }
-
 
 #resources li div:first-child {
   height: 32px;
   width: 32px;
   display: inline-block;
+}
+
+#buildings {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+#buildings>div {
+  height: 32px;
+  width: 32px;
 }

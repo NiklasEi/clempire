@@ -23,7 +23,7 @@ class Session {
       delta: 100,
       timeout: false
     }
-    return function() {
+    return function () {
       console.log(context)
       context.rtime = new Date();
       if (!context.timeout) {
@@ -49,6 +49,7 @@ class Session {
     this.canvas.width = leftSide.offsetWidth;
     this.canvas.height = leftSide.offsetHeight;
     this.displaySources();
+    this.displayBuildings();
   }
 
   startGame() {
@@ -124,6 +125,21 @@ class Session {
       display.appendChild(count);
       display.setAttribute("data-resource", resource);
       this.resourcesDisplay.appendChild(display);
+    }
+  }
+
+  displayBuildings() {
+    this.buildingsDisplay = document.getElementById("buildings");
+    // clear list in case of a redraw due to window resize or new resources
+    while (this.buildingsDisplay.firstChild) {
+      this.buildingsDisplay.removeChild(this.buildingsDisplay.firstChild);
+    }
+    for (let buildingIndex in this.game.buildingsData) {
+      let display = document.createElement("div");
+      let building = this.game.buildingsData[buildingIndex];
+      display.style.background = `url(${building.icon})  no-repeat`;
+      display.setAttribute("title", `${building.title}\n\n${building.description}`)
+      this.buildingsDisplay.appendChild(display);
     }
   }
 

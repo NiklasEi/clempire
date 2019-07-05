@@ -34,27 +34,16 @@ main {
   max-width: 250px;
 }
 
+#mainCanvas {
+  background: url("images/grass.png") repeat;
+}
+
 #left-side {
   position: relative;
   flex-basis: 70%;
   flex-grow: 1;
   height: 100%;
   width: 100%;
-}
-
-footer {
-  flex-shrink: 0;
-  height: 50px;
-}
-
-footer .column {
-  background-color: gray;
-  height: 100%;
-  padding: 0 5%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 }
 
 #left-side .resource-field-anchor {
@@ -115,4 +104,24 @@ footer .column {
 #buildings>div {
   height: 32px;
   width: 32px;
+}
+
+footer {
+  flex-shrink: 0;
+  height: 50px;
+}
+
+footer .column {
+  background-color: gray;
+  height: 100%;
+  padding: 0 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer a {
+  text-decoration: none;
+  color: black;
 }

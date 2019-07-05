@@ -5,20 +5,36 @@ class Clempire {
       let now = (new Date).getTime();
       console.log("Loading data ...");
       this.loadData().then(function () {
-        this.resources = {
-          produced: {},
-          gathered: {},
-          current: {}
-        };
-        for (let type in this.resources) {
-          for (let resource in this.resourcesData) {
-            this.resources[type][resource] = 0;
-          }
-        }
+        this.prepare()
         console.log(`... done in ${((new Date()).getTime() - now)}ms`);
         resolve()
       }.bind(this));
     }.bind(this));
+  }
+
+  prepare() {
+    this.prepareResources();
+    this.prepareBuildings();
+  }
+
+  prepareResources() {
+    this.resources = {
+      produced: {},
+      gathered: {},
+      current: {}
+    };
+    for (let type in this.resources) {
+      for (let resource in this.resourcesData) {
+        this.resources[type][resource] = 0;
+      }
+    }
+  }
+
+  prepareBuildings() {
+    this.buildings = {};
+    for (let building in this.buildingsData) {
+      this.buildings[this.buildingsData]
+    }
   }
 
   async loadData() {
@@ -50,12 +66,20 @@ class Clempire {
     }
   }
 
-  fieldClick() {
+  resourceFieldClick() {
     // called for a click on a resource field.
-    // this is binded to the clicked resource object
-    session.game.resources.current[this.id]++;
-    session.game.resources.gathered[this.id]++;
-    session.game.audio.playSound(this.id);
+    // this is bound to {session: session, source: clickedSource}
+    this.session.game.resources.current[this.source.id]++;
+    this.session.game.resources.gathered[this.source.id]++;
+    this.session.game.audio.playSound(this.source.id);
+  }
+
+  buildingClick() {
+    // called for a click on a resource field.
+    // this is bound to {session: session, building: clickedBuilding}
+    this.session.game.resources.current[this.source.id]++;
+    this.session.game.resources.gathered[this.source.id]++;
+    this.session.game.audio.playSound(this.source.id);
   }
 
   isReqMet(req) {

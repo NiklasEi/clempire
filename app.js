@@ -11,8 +11,6 @@ class Session {
     this.game.load.then(function () {
       window.addEventListener('resize', this.resizeHandler(), true);
       this.drawGame();
-      this.displayResources();
-      this.startGame();
     }.bind(this));
   }
 
@@ -46,8 +44,14 @@ class Session {
     let leftSide = document.getElementById("left-side");
     this.canvas.width = leftSide.offsetWidth;
     this.canvas.height = leftSide.offsetHeight;
-    this.displaySources();
-    this.displayBuildings();
+
+    this.world = new World(this.canvas);
+    this.world.drawWorld().then(function () {
+      this.displaySources();
+      this.displayBuildings();
+      this.displayResources();
+      this.startGame();
+    }.bind(this));
   }
 
   startGame() {
@@ -69,18 +73,21 @@ class Session {
       if (counter === resourceFields.length) {
         throw new Error("Not enogh resource fields!")
       }
-      let image = new Image();
-      // ToDo: cache image... atm this is reloading on every resize
-      image.onload = function () {
-        context.drawImage(image, 0, 0, image.width, image.height, this.canvas.width * 0.5 - 85, this.topGridSize * (this.counter + 1) - 85, 170, 170);
-      }.bind({
-        canvas: this.canvas,
-        counter: counter,
-        topGridSize: topGridSize
-      })
-      image.src = this.game.sourcesData[source].img;
+      // let image = new Image();
+      // // ToDo: cache image... atm this is reloading on every resize
+      // image.onload = function () {
+      //   context.drawImage(image, 0, 0, image.width, image.height, this.canvas.width * 0.5 - 85, this.topGridSize * (this.counter + 1) - 85, 170, 170);
+      // }.bind({
+      //   canvas: this.canvas,
+      //   counter: counter,
+      //   topGridSize: topGridSize
+      // })
+      // image.src = this.game.sourcesData[source].img;
       let field = resourceFields[counter];
-      field.onclick = this.game.fieldClick.bind(this.game.sourcesData[source]);
+      field.onclick = this.game.resourceFieldClick.bind({
+        source: this.game.sourcesData[source],
+        session: this
+      });
       counter++;
     }
   }
@@ -142,10 +149,19 @@ class Session {
   }
 
   updateResources() {
+    let titleResources = "";
     for (let i = 0; i < this.resourcesDisplay.children.length; i++) {
       let resourceDisplay = this.resourcesDisplay.children[i];
-      resourceDisplay.getElementsByTagName("span")[0].innerText = this.game.resources.current[resourceDisplay.dataset.resource];
+      let currentCount = this.beautify(this.game.resources.current[resourceDisplay.dataset.resource]);
+      resourceDisplay.getElementsByTagName("span")[0].innerText = currentCount;
+      titleResources += " | " + resourceDisplay.dataset.resource.charAt(0) + ": " + currentCount;
     }
+    document.querySelector("head title").innerText = "Clempire" + titleResources;
+  }
+
+  beautify(number) {
+    // ToDo
+    return number;
   }
 }
 

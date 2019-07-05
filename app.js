@@ -4,6 +4,10 @@ class Session {
     this.canvas;
     this.globalTimer;
     this.resourcesDisplay;
+    this.titleRotation = 0;
+    this.titleRotationTime = 5000;
+    // ticks per second
+    this.gameTicks = 5;
   }
 
   initialize() {
@@ -55,11 +59,12 @@ class Session {
   }
 
   startGame() {
-    this.globalTimer = setInterval(this.tick.bind(this), 200);
+    this.globalTimer = setInterval(this.tick.bind(this), Math.floor(1000 / this.gameTicks));
   }
 
   tick() {
     this.updateResources();
+    if(((new Date()).getTime() % this.titleRotationTime) <= Math.floor(1000 / this.gameTicks)) this.rotateTitleDisplay();
   }
 
   displaySources() {
@@ -149,19 +154,26 @@ class Session {
   }
 
   updateResources() {
-    let titleResources = "";
     for (let i = 0; i < this.resourcesDisplay.children.length; i++) {
       let resourceDisplay = this.resourcesDisplay.children[i];
       let currentCount = this.beautify(this.game.resources.current[resourceDisplay.dataset.resource]);
       resourceDisplay.getElementsByTagName("span")[0].innerText = currentCount;
-      titleResources += " | " + resourceDisplay.dataset.resource.charAt(0) + ": " + currentCount;
+      if(i === this.titleRotation) {
+        document.querySelector("head title").innerText = currentCount + " | Clempire";
+      }
     }
-    document.querySelector("head title").innerText = "Clempire" + titleResources;
   }
 
   beautify(number) {
     // ToDo
     return number;
+  }
+
+  rotateTitleDisplay() {
+      this.titleRotation ++;
+      let keys = Object.keys(this.game.resourcesData);
+      if(this.titleRotation % keys.length === 0) this.titleRotation = 0;
+      document.querySelector('head link[rel="icon"]').setAttribute("href", this.game.resourcesData[keys[this.titleRotation]].icon)
   }
 }
 

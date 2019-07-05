@@ -1,0 +1,25 @@
+[
+  {
+    "id": "an-axe",
+    "title": "Actual axe",
+    "description": "Now your Lumber doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack",
+    "icon": "/assets/images/up.png",
+    "requirements": [
+      {
+        "resources": {
+          "gathered": {
+            "wood": 100
+          }
+        }
+      }
+    ],
+    "cost": {
+      "wood": 200
+    },
+    "effect": {
+      "production": {
+        "wood": 0.5
+      }
+    }
+  }
+]

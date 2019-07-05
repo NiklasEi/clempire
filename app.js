@@ -24,7 +24,6 @@ class Session {
       timeout: false
     }
     return function () {
-      console.log(context)
       context.rtime = new Date();
       if (!context.timeout) {
         context.timeout = true;
@@ -34,7 +33,6 @@ class Session {
   }
 
   resizeEnd() {
-    console.log(this)
     if (new Date() - this.rtime < this.delta) {
       setTimeout(this.session.resizeEnd.bind(this), this.delta);
     } else {

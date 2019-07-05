@@ -31,7 +31,20 @@ class Clempire {
     let loadingSources = fetch("/assets/data/sources.json")
       .catch(e => console.log(e))
       .then(response => response.json());
-    [this.resourcesData, this.buildingsData, this.sourcesData] = await Promise.all([loadingResources, loadingBuildings, loadingSources]);
+    let loadingUpgrades = fetch("/assets/data/upgrades.json")
+      .catch(e => console.log(e))
+      .then(response => response.json());
+    [
+      this.resourcesData,
+      this.buildingsData,
+      this.sourcesData,
+      this.upgradeData
+    ] = await Promise.all([
+      loadingResources,
+      loadingBuildings,
+      loadingSources,
+      loadingUpgrades
+    ]);
     for (let source in this.sourcesData) {
       this.audio.addSound(this.sourcesData[source].id, this.sourcesData[source].sound);
     }
@@ -48,7 +61,7 @@ class Clempire {
   isReqMet(req) {
     for (let category in req.resources) {
       for (let resource in this.resourcesData) {
-        if(!req.resources[category][resource] || req.resources[category][resource] > this.resources[category][resource]) {
+        if (!req.resources[category][resource] || req.resources[category][resource] > this.resources[category][resource]) {
           return false;
         }
       }

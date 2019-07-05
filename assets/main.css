@@ -31,6 +31,20 @@ main {
 #right-side {
   flex-basis: 30%;
   max-width: 250px;
+  min-width: 150px;
+  background: green;
+}
+
+#buildings {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+#buildings > div {
+  height: 32px;
+  width: 32px;
 }
 
 #left-side {

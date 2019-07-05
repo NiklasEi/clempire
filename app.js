@@ -93,7 +93,7 @@ class Session {
   }
 
   placeResourceAnchors() {
-    let count = 1;
+    let count = 0;
     let length = this.game.sourcesData.length;
     let anchors = document.getElementById("anchors");
     while (anchors.firstChild) {
@@ -102,9 +102,9 @@ class Session {
     for (let source in this.game.sourcesData) {
       let anchor = document.createElement("div");
       anchor.classList.add("resource-field-anchor");
-      anchor.setAttribute("data-source-field", count.toString());
-      anchor.style.top = `${(100 / (length + 1)) * count}%`;
-      anchor.style.left = "50%";
+      anchor.setAttribute("data-source-field", `${count + 1}`);
+      anchor.style.left = `${15 + (70 / (length - 1)) * count}%`;
+      anchor.style.top = "150px";
       let field = document.createElement("div");
       field.classList.add("resource-field");
       field.style.cursor = `url(${this.game.sourcesData[source].cursor}), pointer`

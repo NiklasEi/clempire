@@ -6,9 +6,9 @@ class World {
     this.treesCount = 400;
     this.stonesImgCount = 11;
     this.stonesCount = 200;
-    this.worldSeed = "dfghj";
-    //Math.seedrandom(this.worldSeed);
-    console.log(Math.random().toString())
+    this.worldSeed = (Math.random() + 1).toString(36).substring(7);
+    console.log("Current world seed: " + this.worldSeed);
+    Math.seedrandom(this.worldSeed);
     this.center = [Math.floor(canvas.height / 2), Math.floor(canvas.width / 2)];
     this.townRadius = 250;
     this.loading.push(this.loadTrees());

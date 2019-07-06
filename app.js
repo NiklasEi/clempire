@@ -112,7 +112,7 @@ class Session {
       anchor.style.top = "150px";
       let field = document.createElement("div");
       field.classList.add("resource-field");
-      field.style.cursor = `url(${this.game.sourcesData[source].cursor}), pointer`
+      field.style.cursor = `url(${this.game.sourcesData[source].cursor}) 10 10, pointer`
       anchor.appendChild(field);
       anchors.appendChild(anchor);
       count++;

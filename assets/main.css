@@ -74,7 +74,7 @@ main {
 }
 
 #anchors div.resource-field-anchor[data-source-field="2"] div {
-  background-image: url(/assets/images/stones.png);
+  background-image: url(/assets/images/rock.png);
 }
 
 #resources ul {

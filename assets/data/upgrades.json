@@ -1,5 +1,23 @@
 [
   {
+    "id": "jack-the-lumberjack",
+    "title": "Jack the Lumberjack",
+    "description": "A big, bearded man walks out of the forest. He introcues himself as Jack and offers to help you with your wood production\n\"For a moment I was really scared\"\n- You",
+    "icon": "/assets/images/lumber.png",
+    "requirements": [
+      {
+        "resources": {
+          "gathered": {
+            "wood": 100
+          }
+        }
+      }
+    ],
+    "cost": {
+      "wood": 100,
+      "stone": 100
+    }
+  },{
     "id": "an-axe",
     "title": "Actual axe",
     "description": "Now your Lumber doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack",
@@ -8,7 +26,7 @@
       {
         "resources": {
           "gathered": {
-            "wood": 100
+            "wood": 250
           }
         }
       }

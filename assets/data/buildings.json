@@ -6,6 +6,9 @@
     "description": "The lumber jack will help with your wood production.",
     "requirements": [
       {
+        "upgrades": {
+          "has": ["jack-the-lumberjack"]
+        },
         "resources": {
           "gathered": {
             "wood": 100

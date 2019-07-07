@@ -9,10 +9,11 @@ class World {
     this.worldSeed = (Math.random() + 1).toString(36).substring(7);
     console.log("Current world seed: " + this.worldSeed);
     Math.seedrandom(this.worldSeed);
-    this.center = [Math.floor(canvas.height / 2), Math.floor(canvas.width / 2)];
-    this.townRadius = 250;
+    this.center = [Math.floor(canvas.width / 2), Math.floor(canvas.height / 2)];
+    this.townRadius = 200;
     this.loading.push(this.loadTrees());
     this.loading.push(this.loadStones());
+    this.loading.push(this.loadTown());
     this.toDraw = [];
   }
 
@@ -30,8 +31,9 @@ class World {
   drawWorld() {
     return new Promise(function (resolve, reject) {
       Promise.all(this.loading).then(function () {
-        this.drawTrees();
-        this.drawStones();
+        this.placeTrees();
+        this.placeStones();
+        this.placeTown();
         let context = this.canvas.getContext("2d")
         this.toDraw.sort((a, b) => a.y + a.img.height - (b.y + b.img.height)).forEach(function (tree) {
           context.drawImage(tree.img, 0, 0, tree.img.width, tree.img.height, tree.x, tree.y, tree.img.width, tree.img.height)
@@ -41,7 +43,7 @@ class World {
     }.bind(this))
   }
 
-  drawTrees() {
+  placeTrees() {
     let count = 0;
     let tries = 0;
     while (count < this.treesCount && tries < this.treesCount * 2) {
@@ -59,7 +61,7 @@ class World {
     }
   }
 
-  drawStones() {
+  placeStones() {
     let count = 0;
     let tries = 0;
     while (count < this.stonesCount && tries < this.stonesCount * 2) {
@@ -75,6 +77,14 @@ class World {
         img: img
       })
     }
+  }
+
+  placeTown() {
+    this.toDraw.push({
+      x: this.center[0] - this.town.tavern.width / 2,
+      y: this.center[1] - this.town.tavern.height / 2,
+      img: this.town.tavern
+    });
   }
 
   async loadTrees() {
@@ -98,6 +108,16 @@ class World {
     this.stones = {};
     for (let i = 0; i < this.stonesImgCount; i++) {
       this.stones[i] = loadingStones[i];
+    }
+  }
+
+  async loadTown() {
+    let loadingTown = []
+    loadingTown.push(this.loadImage(`/assets/images/town/tavern.png`).then(response => {return {id: "tavern", img: response}}))
+    loadingTown = await Promise.all(loadingTown);
+    this.town = {}
+    for (let i = 0; i < loadingTown.length; i++) {
+      this.town[loadingTown[i].id] = loadingTown[i].img;
     }
   }
 

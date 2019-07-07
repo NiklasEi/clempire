@@ -14,7 +14,7 @@ body {
 }
 
 .overlay {
-  width: 100%;
+  width: 100vw;
   height: 0;
   position: fixed;
   z-index: 2;
@@ -29,16 +29,16 @@ body {
 .overlay-content {
   position: relative;
   top: 25%;
-  width: 100%;
   text-align: center;
   margin-top: 30px;
+  padding: 0 10%;
 }
 
 .overlay a,
 .overlay p {
   padding: 8px;
   text-decoration: none;
-  font-size: 36px;
+  font-size: 2rem;
   color: #818181;
   display: block;
   transition: 0.3s;
@@ -65,8 +65,12 @@ header {
   flex-shrink: 0;
 }
 
+#buildings > div {
+  cursor: pointer;
+}
+
 header .openHelpBtn {
-  cursor: help, default;
+  cursor: pointer;
 }
 
 main {

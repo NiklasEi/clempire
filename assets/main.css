@@ -38,11 +38,8 @@ main {
   max-width: 250px;
 }
 
-#mainCanvas {
-  background: url("images/grass.png") repeat;
-}
-
 #left-side {
+  background: url("images/grass.png") repeat;
   position: relative;
   flex-basis: 70%;
   flex-grow: 1;
@@ -77,19 +74,19 @@ main {
   background-image: url(/assets/images/rock.png);
 }
 
-#resources ul {
+#resources {
   display: inline;
   list-style: none;
-  padding: 0 5%;
 }
 
 #resources li {
-  list-style: none;
-  padding: 0 10px;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
-  justify-content: start;
+  justify-content: center;
+  list-style: none;
+  padding: 0 10px;
+  margin: 0;
   height: 32px;
   min-width: 50px;
 }

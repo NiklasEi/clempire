@@ -4,7 +4,8 @@ class Session {
     this.canvas;
     this.globalTimer;
     this.resourcesDisplay;
-    this.titleRotation = 0;
+    // start with hardcoded coins as icon
+    this.titleRotation = 2;
     this.titleRotationTime = 5000;
     // ticks per second
     this.gameTicks = 5;
@@ -120,7 +121,7 @@ class Session {
   }
 
   displayResources() {
-    this.resourcesDisplay = document.querySelector("#resources ul");
+    this.resourcesDisplay = document.querySelector("#resources");
     // clear list in case of a redraw due to window resize or new resources
     while (this.resourcesDisplay.firstChild) {
       this.resourcesDisplay.removeChild(this.resourcesDisplay.firstChild);

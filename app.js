@@ -23,11 +23,11 @@ class Session {
     let context = {
       session: this,
       // wait 100ms for further resizing 
-      delta: 100,
+      delta: 150,
       timeout: false
     }
     return function () {
-      context.rtime = new Date();
+      context.resizeTime = new Date();
       if (!context.timeout) {
         context.timeout = true;
         setTimeout(context.session.resizeEnd.bind(context), context.delta);
@@ -36,8 +36,8 @@ class Session {
   }
 
   resizeEnd() {
-    if (new Date() - this.rtime < this.delta) {
-      setTimeout(this.session.resizeEnd.bind(this), this.delta);
+    if (new Date() - this.resizeTime < this.delta) {
+      setTimeout(this.session.resizeEnd.bind(this), this.delta - new Date() + this.resizeTime);
     } else {
       this.timeout = false;
       this.session.drawGame.apply(this.session);
@@ -79,16 +79,6 @@ class Session {
       if (counter === resourceFields.length) {
         throw new Error("Not enogh resource fields!")
       }
-      // let image = new Image();
-      // // ToDo: cache image... atm this is reloading on every resize
-      // image.onload = function () {
-      //   context.drawImage(image, 0, 0, image.width, image.height, this.canvas.width * 0.5 - 85, this.topGridSize * (this.counter + 1) - 85, 170, 170);
-      // }.bind({
-      //   canvas: this.canvas,
-      //   counter: counter,
-      //   topGridSize: topGridSize
-      // })
-      // image.src = this.game.sourcesData[source].img;
       let field = resourceFields[counter];
       field.onclick = this.game.resourceFieldClick.bind({
         source: this.game.sourcesData[source],

@@ -81,32 +81,45 @@ main {
   justify-items: stretch;
 }
 
-#right-side {
-  flex-basis: 30%;
-  max-width: 250px;
-}
-
 #left-side {
   background: url("images/grass.png") repeat;
   position: relative;
-  flex-basis: 70%;
+  flex-basis: 100%;
   flex-grow: 1;
   height: 100%;
   width: 100%;
+}
+
+#left-side > canvas {
+  position: absolute;
+}
+
+#particles {
+  z-index: 2;
 }
 
 #left-side .resource-field-anchor {
   position: absolute;
 }
 
+
+#left-side .resource-image-field,
 #left-side .resource-field {
   width: 10vw;
   height: 10vw;
   position: absolute;
   left: -5vw;
   top: -5vw;
-  z-index: 1;
   border-radius: 5vw;
+}
+
+#left-side .resource-field {
+  z-index: 3;
+  background-image: url(images/empty.png);
+}
+
+#left-side .resource-image-field {
+  z-index: 1;
   background-color: lightgrey;
   background-repeat: no-repeat;
   background-size: contain;
@@ -114,11 +127,11 @@ main {
   border: blue solid 2px;
 }
 
-#anchors div.resource-field-anchor[data-source-field="1"] div {
+#anchors div.resource-field-anchor[data-source-field="1"] .resource-image-field {
   background-image: url(images/Tree.png);
 }
 
-#anchors div.resource-field-anchor[data-source-field="2"] div {
+#anchors div.resource-field-anchor[data-source-field="2"] .resource-image-field {
   background-image: url(images/rock.png);
 }
 
@@ -146,6 +159,7 @@ main {
 
 #resources li>span {
   padding: 0 5px;
+  font-weight: bold;
 }
 
 #resources li div:first-child {

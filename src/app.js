@@ -50,9 +50,12 @@ class Session {
 
   drawGame() {
     this.canvas = document.getElementById("mainCanvas");
+    let particlesCanvas = document.getElementById("particles");
     let leftSide = document.getElementById("left-side");
     this.canvas.width = leftSide.offsetWidth;
     this.canvas.height = leftSide.offsetHeight;
+    particlesCanvas.width = leftSide.offsetWidth;
+    particlesCanvas.height = leftSide.offsetHeight;
 
     this.world = new World(this.canvas);
     this.world.drawWorld().then(function () {
@@ -69,7 +72,7 @@ class Session {
 
   tick() {
     this.updateResources();
-    if(((new Date()).getTime() % this.titleRotationTime) <= Math.floor(1000 / this.gameTicks)) this.rotateTitleDisplay();
+    if (((new Date()).getTime() % this.titleRotationTime) <= Math.floor(1000 / this.gameTicks)) this.rotateTitleDisplay();
   }
 
   displaySources() {
@@ -82,10 +85,13 @@ class Session {
         throw new Error("Not enogh resource fields!")
       }
       let field = resourceFields[counter];
-      field.onclick = this.game.resourceFieldClick.bind({
-        source: this.game.sourcesData[source],
-        session: this
-      });
+      field.onclick = function (e) {
+        this.game.resourceFieldClick.apply({
+          source: this.game.sourcesData[source],
+          session: this,
+          coordinates: [e.clientX, e.clientY - 50] // remove header offset
+        });
+      }.bind(this);
       counter++;
     }
   }
@@ -102,7 +108,10 @@ class Session {
       anchor.classList.add("resource-field-anchor");
       anchor.setAttribute("data-source-field", `${count + 1}`);
       anchor.style.left = `${15 + (70 / (length - 1)) * count}%`;
-      anchor.style.top = "150px";
+      anchor.style.top = "170px";
+      let imgField = document.createElement("div");
+      imgField.classList.add("resource-image-field");
+      anchor.appendChild(imgField);
       let field = document.createElement("div");
       field.classList.add("resource-field");
       field.style.cursor = `url(${this.game.sourcesData[source].cursor}) 10 10, pointer`
@@ -142,7 +151,10 @@ class Session {
       let building = this.game.buildingsData[buildingIndex];
       display.style.background = `url(${building.icon})  no-repeat`;
       display.setAttribute("title", `${building.title}\n\n${building.description}`)
-      display.onclick = this.game.buildingClick.bind({building: building, session: this});
+      display.onclick = this.game.buildingClick.bind({
+        building: building,
+        session: this
+      });
       this.buildingsDisplay.appendChild(display);
     }
   }
@@ -152,17 +164,17 @@ class Session {
       let resourceDisplay = this.resourcesDisplay.children[i];
       let currentCount = NumbersUtility.beautify(this.game.resources.current[resourceDisplay.dataset.resource]);
       resourceDisplay.getElementsByTagName("span")[0].innerText = currentCount;
-      if(i === this.titleRotation) {
+      if (i === this.titleRotation) {
         document.querySelector("head title").innerText = currentCount + " | Clempire";
       }
     }
   }
 
   rotateTitleDisplay() {
-      this.titleRotation ++;
-      let keys = Object.keys(this.game.resourcesData);
-      if(this.titleRotation % keys.length === 0) this.titleRotation = 0;
-      document.querySelector('head link[rel="icon"]').setAttribute("href", this.game.resourcesData[keys[this.titleRotation]].icon)
+    this.titleRotation++;
+    let keys = Object.keys(this.game.resourcesData);
+    if (this.titleRotation % keys.length === 0) this.titleRotation = 0;
+    document.querySelector('head link[rel="icon"]').setAttribute("href", this.game.resourcesData[keys[this.titleRotation]].icon)
   }
 }
 

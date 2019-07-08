@@ -1,10 +1,13 @@
 import CookieUtility from "./cookies.js"
 import Alert from "./alert.js"
+import Particles from "./particles.js"
 import AudioPlayer from "./audio.js"
 
 class Clempire {
   constructor() {
     this.audio = new AudioPlayer();
+    let particlesCanvas = document.getElementById("particles");
+    this.particles = new Particles(particlesCanvas)
     this.load = new Promise(function (resolve, reject) {
       let now = (new Date).getTime();
       console.log("Loading data ...");
@@ -41,7 +44,7 @@ class Clempire {
     for (let type in this.resources) {
       for (let resource in this.resourcesData) {
         let fromSave = CookieUtility.getCookie("resources." + type + "." + resource)
-        this.resources[type][resource] = (fromSave && fromSave > 0) ? fromSave : 0;
+        this.resources[type][resource] = (fromSave && fromSave > 0) ? parseInt(fromSave) : 0;
       }
     }
   }
@@ -80,14 +83,39 @@ class Clempire {
     for (let source in this.sourcesData) {
       this.audio.addSound(this.sourcesData[source].id, this.sourcesData[source].sound);
     }
+    let loadingIcons = [];
+    for (let resource in this.resourcesData) {
+      this.resourcesData[resource].img = this.loadImage(this.resourcesData[resource].icon).then(response => response)
+      loadingIcons.push(this.resourcesData[resource].img);
+    }
+    loadingIcons = await Promise.all(loadingIcons);
+    let i = 0;
+    for (let resource in this.resourcesData) {
+      this.resourcesData[resource].img = loadingIcons[i];
+      i++;
+    }
+  }
+
+  loadImage(url) {
+    return new Promise((resolve, reject) => {
+      let img = new Image();
+      img.addEventListener('load', () => resolve(img));
+      img.addEventListener('error', () => {
+        reject(new Error(`Failed to load image's URL: ${url}`));
+      });
+      img.src = url;
+    });
   }
 
   resourceFieldClick() {
     // called for a click on a resource field.
     // this is bound to {session: session, source: clickedSource}
-    this.session.game.resources.current[this.source.id]++;
-    this.session.game.resources.gathered[this.source.id]++;
+    let count = 1;
+    this.session.game.resources.current[this.source.id] += count;
+    this.session.game.resources.gathered[this.source.id] += count;
     this.session.game.audio.playSound(this.source.id);
+    let img = this.session.game.resourcesData[this.source.id].img;
+    this.session.game.particles.spawn(img, this.coordinates[0], this.coordinates[1], "+ " + count, 5000);
   }
 
   buildingClick() {

@@ -20,6 +20,7 @@ class Clempire {
         CookieUtility.saveCookie("resources." + type + "." + resource, this.resources[type][resource])
       }
     }
+    Alert.autoSave();
   }
 
   prepare() {

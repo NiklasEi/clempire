@@ -12,6 +12,7 @@
     />
     <link rel="stylesheet" href="assets/main.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js"></script>
+    <script src="./alert.js"></script>
     <script src="./numbers.js"></script>
     <script src="./cookies.js"></script>
     <script src="./help.js"></script>
@@ -22,16 +23,24 @@
   </head>
   <body>
     <div id="help" class="overlay">
-      <a href="javascript:void(0)" class="closeHelpBtn" onclick="closeHelp()">&times;</a>
+      <a href="javascript:void(0)" class="closeHelpBtn" onclick="closeHelp()"
+        >&times;</a
+      >
       <div class="overlay-content">
-        <p>Click on the resource buttons (circled in blue) to gather wood and stone. Collect achievents, unlock new buildings along the way and upgrade your current ones.</p>
+        <p>
+          Click on the resource buttons (circled in blue) to gather wood and
+          stone. Collect achievents, unlock new buildings along the way and
+          upgrade your current ones.
+        </p>
         <p>With time and a lot of clicking you can build up your town.</p>
       </div>
     </div>
     <header>
       <ul id="resources"></ul>
       <div id="buildings"></div>
-      <span class="openHelpBtn" onclick="openHelp()">Info <i class="fa fa-info-circle" aria-hidden="true"></i></span> 
+      <span class="openHelpBtn" onclick="openHelp()"
+        >Info <i class="fa fa-info-circle" aria-hidden="true"></i
+      ></span>
     </header>
     <main>
       <div id="left-side">
@@ -52,5 +61,6 @@
         ></span>
       </div>
     </footer>
+    <div id="auto-update-alerts" class="alert-area"></div>
   </body>
 </html>

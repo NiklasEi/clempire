@@ -86,7 +86,7 @@ class World {
   placeTown() {
     this.toDraw.push({
       x: this.center[0] - this.town.tavern.width / 2,
-      y: this.center[1] - this.town.tavern.height / 2,
+      y: this.center[1] - this.town.tavern.height / 2 - 100,
       img: this.town.tavern
     });
   }

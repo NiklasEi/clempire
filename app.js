@@ -147,17 +147,12 @@ class Session {
   updateResources() {
     for (let i = 0; i < this.resourcesDisplay.children.length; i++) {
       let resourceDisplay = this.resourcesDisplay.children[i];
-      let currentCount = this.beautify(this.game.resources.current[resourceDisplay.dataset.resource]);
+      let currentCount = NumbersUtility.beautify(this.game.resources.current[resourceDisplay.dataset.resource]);
       resourceDisplay.getElementsByTagName("span")[0].innerText = currentCount;
       if(i === this.titleRotation) {
         document.querySelector("head title").innerText = currentCount + " | Clempire";
       }
     }
-  }
-
-  beautify(number) {
-    // ToDo
-    return number;
   }
 
   rotateTitleDisplay() {

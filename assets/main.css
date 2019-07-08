@@ -79,8 +79,6 @@ main {
   flex-direction: row;
   justify-content: stretch;
   justify-items: stretch;
-  background-color: lightgray;
-  background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
 }
 
 #right-side {

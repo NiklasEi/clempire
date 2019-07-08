@@ -5,7 +5,7 @@ class World {
     this.treesImgCount = 4;
     this.treesCount = 400;
     this.stonesImgCount = 11;
-    this.stonesCount = 200;
+    this.stonesCount = 300;
     this.worldSeed = CookieUtility.getCookie("world.seed");
     if(!this.worldSeed || this.worldSeed.length <= 0) {
       this.worldSeed = (Math.random() + 1).toString(36).substring(7);
@@ -56,7 +56,7 @@ class World {
       let y = Math.random() * Math.floor(this.canvas.height) - 20;
       if (Math.pow(this.canvas.width / 2 - x, 2) + Math.pow(this.canvas.height / 2 - y, 2) < Math.pow(this.townRadius, 2)) continue;
       count++;
-      let img = Math.random() < 0.05 ? this.stones[Math.floor(Math.random() * (this.stonesImgCount / 2)) + Math.floor(this.stonesImgCount / 2)] : this.trees[Math.floor(Math.random() * this.treesImgCount)];
+      let img = Math.random() < 0.05 ? this.stones[Math.floor(Math.random() * 4) + 6] : this.trees[Math.floor(Math.random() * this.treesImgCount)];
       this.toDraw.push({
         x: x,
         y: y,
@@ -74,7 +74,7 @@ class World {
       let y = Math.random() * Math.floor(this.canvas.height);
       if (Math.pow(this.canvas.width / 2 - x, 2) + Math.pow(this.canvas.height / 2 - y, 2) < Math.pow(this.townRadius, 2)) continue;
       count++;
-      let img = Math.random() < 0.2 ? this.trees[Math.floor(Math.random() * this.treesImgCount)] : this.stones[Math.floor(Math.random() * this.stonesImgCount)];
+      let img = Math.random() < 0.7 ? this.trees[Math.floor(Math.random() * this.treesImgCount)] : this.stones[Math.floor(Math.random() * this.stonesImgCount)];
       this.toDraw.push({
         x: Math.abs(x - this.canvas.width),
         y: y,

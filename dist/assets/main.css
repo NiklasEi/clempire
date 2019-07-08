@@ -115,11 +115,11 @@ main {
 }
 
 #anchors div.resource-field-anchor[data-source-field="1"] div {
-  background-image: url(/assets/images/Tree.png);
+  background-image: url(images/Tree.png);
 }
 
 #anchors div.resource-field-anchor[data-source-field="2"] div {
-  background-image: url(/assets/images/rock.png);
+  background-image: url(images/rock.png);
 }
 
 #resources {

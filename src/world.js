@@ -96,7 +96,7 @@ class World {
   async loadTrees() {
     let loadingTrees = []
     for (let i = 0; i < this.treesImgCount; i++) {
-      loadingTrees.push(this.loadImage(`/assets/images/trees/${i}.png`).then(response => response))
+      loadingTrees.push(this.loadImage(`assets/images/trees/${i}.png`).then(response => response))
     }
     loadingTrees = await Promise.all(loadingTrees);
     this.trees = {};
@@ -108,7 +108,7 @@ class World {
   async loadStones() {
     let loadingStones = []
     for (let i = 0; i < this.stonesImgCount; i++) {
-      loadingStones.push(this.loadImage(`/assets/images/stones/${i}.png`).then(response => response))
+      loadingStones.push(this.loadImage(`assets/images/stones/${i}.png`).then(response => response))
     }
     loadingStones = await Promise.all(loadingStones);
     this.stones = {};
@@ -119,7 +119,7 @@ class World {
 
   async loadTown() {
     let loadingTown = []
-    loadingTown.push(this.loadImage(`/assets/images/town/tavern.png`).then(response => {return {id: "tavern", img: response}}))
+    loadingTown.push(this.loadImage(`assets/images/town/tavern.png`).then(response => {return {id: "tavern", img: response}}))
     loadingTown = await Promise.all(loadingTown);
     this.town = {}
     for (let i = 0; i < loadingTown.length; i++) {

@@ -2,7 +2,7 @@
   {
     "id": "lumber-jack",
     "title": "Lumber Jack",
-    "icon": "/assets/images/lumber.png",
+    "icon": "assets/images/lumber.png",
     "description": "The lumber jack will help with your wood production.",
     "requirements": [
       {

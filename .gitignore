@@ -1,4 +1,3 @@
-cc.*
 .vscode/
 node_modules
-clempire.bundle.*
+dist/clempire.bundle.*

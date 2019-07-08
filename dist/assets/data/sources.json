@@ -1,0 +1,14 @@
+[
+  {
+    "img": "assets/images/Tree.png",
+    "sound": "assets/sounds/axe-sound.ogg",
+    "id": "wood",
+    "cursor": "assets/images/axe.png"
+  },
+  {
+    "img": "assets/images/stones.png",
+    "sound": "assets/sounds/pick-axe.ogg",
+    "id": "stone",
+    "cursor": "assets/images/pick-axe.png"
+  }
+]

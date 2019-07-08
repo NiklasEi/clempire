@@ -142,6 +142,7 @@ class Session {
       let building = this.game.buildingsData[buildingIndex];
       display.style.background = `url(${building.icon})  no-repeat`;
       display.setAttribute("title", `${building.title}\n\n${building.description}`)
+      display.onclick = this.game.buildingClick.bind({building: building, session: this});
       this.buildingsDisplay.appendChild(display);
     }
   }

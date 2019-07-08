@@ -49,21 +49,21 @@ class Clempire {
   prepareBuildings() {
     this.buildings = {};
     for (let building in this.buildingsData) {
-      this.buildings[this.buildingsData[building]]
+      this.buildings[this.buildingsData[building].id] = 0;
     }
   }
 
   async loadData() {
-    let loadingResources = fetch("/assets/data/resources.json")
+    let loadingResources = fetch("assets/data/resources.json")
       .catch(e => console.log(e))
       .then(response => response.json());
-    let loadingBuildings = fetch("/assets/data/buildings.json")
+    let loadingBuildings = fetch("assets/data/buildings.json")
       .catch(e => console.log(e))
       .then(response => response.json());
-    let loadingSources = fetch("/assets/data/sources.json")
+    let loadingSources = fetch("assets/data/sources.json")
       .catch(e => console.log(e))
       .then(response => response.json());
-    let loadingUpgrades = fetch("/assets/data/upgrades.json")
+    let loadingUpgrades = fetch("assets/data/upgrades.json")
       .catch(e => console.log(e))
       .then(response => response.json());
     [
@@ -93,9 +93,7 @@ class Clempire {
   buildingClick() {
     // called for a click on a resource field.
     // this is bound to {session: session, building: clickedBuilding}
-    this.session.game.resources.current[this.source.id]++;
-    this.session.game.resources.gathered[this.source.id]++;
-    this.session.game.audio.playSound(this.source.id);
+    this.session.game.buildings[this.building.id] ++;
   }
 
   isReqMet(req) {

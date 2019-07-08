@@ -33,5 +33,5 @@
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2"
   },
-  "eslintIgnore": ["webpack.config.js"]
+  "eslintIgnore": ["webpack.config.js", "clempire.bundle.*"]
 }

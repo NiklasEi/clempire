@@ -6,7 +6,11 @@ class World {
     this.treesCount = 400;
     this.stonesImgCount = 11;
     this.stonesCount = 200;
-    this.worldSeed = (Math.random() + 1).toString(36).substring(7);
+    this.worldSeed = CookieUtility.getCookie("world.seed");
+    if(!this.worldSeed || this.worldSeed.length <= 0) {
+      this.worldSeed = (Math.random() + 1).toString(36).substring(7);
+      CookieUtility.saveCookie("world.seed", this.worldSeed);
+    }
     console.log("Current world seed: " + this.worldSeed);
     Math.seedrandom(this.worldSeed);
     this.center = [Math.floor(canvas.width / 2), Math.floor(canvas.height / 2)];
@@ -119,20 +123,5 @@ class World {
     for (let i = 0; i < loadingTown.length; i++) {
       this.town[loadingTown[i].id] = loadingTown[i].img;
     }
-  }
-
-  async loadResources() {
-    let loadingResources = [];
-
-    // let image = new Image();
-    // // ToDo: cache image... atm this is reloading on every resize
-    // image.onload = function () {
-    //   context.drawImage(image, 0, 0, image.width, image.height, this.canvas.width * 0.5 - 85, this.topGridSize * (this.counter + 1) - 85, 170, 170);
-    // }.bind({
-    //   canvas: this.canvas,
-    //   counter: counter,
-    //   topGridSize: topGridSize
-    // })
-    // image.src = this.game.sourcesData[source].img;
   }
 }

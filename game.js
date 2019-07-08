@@ -10,6 +10,16 @@ class Clempire {
         resolve()
       }.bind(this));
     }.bind(this));
+    this.autoSaveIntervall = 120000;
+    this.autoSaveId = setInterval(this.autoSave.bind(this), this.autoSaveIntervall);
+  }
+
+  autoSave() {
+    for (let type in this.resources) {
+      for (let resource in this.resources[type]) {
+        CookieUtility.saveCookie("resources." + type + "." + resource, this.resources[type][resource])
+      }
+    }
   }
 
   prepare() {
@@ -25,7 +35,8 @@ class Clempire {
     };
     for (let type in this.resources) {
       for (let resource in this.resourcesData) {
-        this.resources[type][resource] = 0;
+        let fromSave = CookieUtility.getCookie("resources." + type + "." + resource)
+        this.resources[type][resource] = (fromSave && fromSave > 0) ? fromSave : 0;
       }
     }
   }

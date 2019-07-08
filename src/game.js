@@ -8,7 +8,7 @@ class Clempire {
     this.load = new Promise(function (resolve, reject) {
       let now = (new Date).getTime();
       console.log("Loading data ...");
-      this.loadData().then(function () {
+      this.loadData().catch(e => reject(e)).then(function () {
         this.prepare()
         console.log(`... done in ${((new Date()).getTime() - now)}ms`);
         resolve()

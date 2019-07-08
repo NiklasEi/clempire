@@ -30,8 +30,8 @@ module.exports = {
       template: 'index.html',
       inject: false,
       minify: {
-        removeComments: true,
-        collapseWhitespace: true
+        removeComments: false,
+        collapseWhitespace: false
       }
     })
   ]

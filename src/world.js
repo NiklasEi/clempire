@@ -26,7 +26,7 @@ class World {
   loadImage(url) {
     return new Promise((resolve, reject) => {
       let img = new Image();
-      img.addEventListener('load', e => resolve(img));
+      img.addEventListener('load', () => resolve(img));
       img.addEventListener('error', () => {
         reject(new Error(`Failed to load image's URL: ${url}`));
       });
@@ -35,7 +35,7 @@ class World {
   }
 
   drawWorld() {
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
       Promise.all(this.loading).then(function () {
         this.placeTrees();
         this.placeStones();

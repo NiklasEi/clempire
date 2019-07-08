@@ -24,7 +24,7 @@ class AudioPlayer {
   addSound(id, url) {
     if (!this.audioContext) return;
     this.sounds[id] = new Sound(url, id);
-    this.sounds[id].prepare(this.worker, this.audioContext);
+    this.sounds[id].prepare(this.worker);
   }
 
   playSound(id) {
@@ -49,7 +49,7 @@ class Sound {
     this.buffer = undefined;
   }
 
-  prepare(worker, audioContext) {
+  prepare(worker) {
     if (!worker) return;
     worker.postMessage({
       id: this.id,

@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="assets/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js"></script>
     <script src="./clempire.bundle.js"></script>
-    <script src="./src/help.js"></script>
+    <script src="./src/overlay.js"></script>
   </head>
   <body>
-    <div id="help" class="overlay">
-      <a href="javascript:void(0)" class="closeHelpBtn" onclick="closeHelp()">&times;</a>
+    <div id="overlay" class="overlay">
+      <a href="javascript:void(0)" class="closeOverlayBtn" onclick="hideOverlay()">&times;</a>
       <div class="overlay-content">
         <p>
           Click on the resource buttons (circled in blue) to gather wood and
@@ -27,7 +27,7 @@
     <header>
       <ul id="resources"></ul>
       <div id="buildings"></div>
-      <span class="openHelpBtn" onclick="openHelp()">Info <i class="fa fa-info-circle" aria-hidden="true"></i></span>
+      <span class="openHelpBtn" onclick="showOverlay()">Info <i class="fa fa-info-circle" aria-hidden="true"></i></span>
     </header>
     <main>
       <div id="left-side">

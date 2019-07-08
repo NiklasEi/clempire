@@ -1,31 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Clempire</title>
-    <link rel="icon" type="image/png" href="/assets/images/coins.png" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="assets/main.css" />
+    <link rel="icon" type="image/png" href="/assets/images/coins.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.3.10/seedrandom.min.js"></script>
-    <script src="./alert.js"></script>
-    <script src="./numbers.js"></script>
-    <script src="./cookies.js"></script>
-    <script src="./help.js"></script>
-    <script src="./world.js"></script>
-    <script src="./audio.js"></script>
-    <script src="./game.js"></script>
-    <script src="./app.js"></script>
+    <script src="./clempire.bundle.js"></script>
+    <script src="./src/help.js"></script>
   </head>
   <body>
     <div id="help" class="overlay">
-      <a href="javascript:void(0)" class="closeHelpBtn" onclick="closeHelp()"
-        >&times;</a
-      >
+      <a href="javascript:void(0)" class="closeHelpBtn" onclick="closeHelp()">&times;</a>
       <div class="overlay-content">
         <p>
           Click on the resource buttons (circled in blue) to gather wood and
@@ -38,9 +27,7 @@
     <header>
       <ul id="resources"></ul>
       <div id="buildings"></div>
-      <span class="openHelpBtn" onclick="openHelp()"
-        >Info <i class="fa fa-info-circle" aria-hidden="true"></i
-      ></span>
+      <span class="openHelpBtn" onclick="openHelp()">Info <i class="fa fa-info-circle" aria-hidden="true"></i></span>
     </header>
     <main>
       <div id="left-side">
@@ -50,15 +37,10 @@
     </main>
     <footer>
       <div class="column">
-        <span
-          ><i class="fa fa-hand-o-right" aria-hidden="true"></i> Ironhack
-          Amsterdam 2019 <i class="fa fa-hand-o-left" aria-hidden="true"></i
-        ></span>
-        <span
-          >by Niklas
-          <a href="https://github.com/NiklasEi/clempire" target="_blank"
-            ><i class="fa fa-lg fa-github" aria-hidden="true"></i></a
-        ></span>
+        <span><i class="fa fa-hand-o-right" aria-hidden="true"></i> Ironhack
+          Amsterdam 2019 <i class="fa fa-hand-o-left" aria-hidden="true"></i></span>
+        <span>by Niklas
+          <a href="https://github.com/NiklasEi/clempire" target="_blank"><i class="fa fa-lg fa-github" aria-hidden="true"></i></a></span>
       </div>
     </footer>
     <div id="auto-update-alerts" class="alert-area"></div>

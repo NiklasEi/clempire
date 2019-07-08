@@ -34,7 +34,7 @@ class Alert {
         }.bind({hide: this.hide, timeout: alertTimeout}));
       }
     }
-  };
+  }
 
   hide() {
     this.box.classList.add('hide');
@@ -42,7 +42,7 @@ class Alert {
       this.box.parentNode.removeChild(this.box);
       clearTimeout(disperseTimeout);
     }.bind(this), 500);
-  };
+  }
 
   static autoSave() {
     (new Alert("#auto-update-alerts", {
@@ -51,4 +51,6 @@ class Alert {
       hideCloseButton: false
     })).show("Game was saved...")
   }
-};
+}
+
+export default Alert

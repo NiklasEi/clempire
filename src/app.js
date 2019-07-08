@@ -1,3 +1,7 @@
+import {Clempire} from "./game.js"
+import World from "./world.js"
+import NumbersUtility from "./numbers.js"
+
 class Session {
   constructor() {
     this.game;
@@ -69,11 +73,9 @@ class Session {
   }
 
   displaySources() {
-    let context = this.canvas.getContext("2d");
     this.placeResourceAnchors();
     let resourceFields = document.getElementsByClassName("resource-field");
     let counter = 0;
-    let topGridSize = this.canvas.height / (resourceFields.length + 1)
 
     for (let source in this.game.sourcesData) {
       if (counter === resourceFields.length) {

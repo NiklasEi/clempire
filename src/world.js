@@ -1,3 +1,5 @@
+import CookieUtility from "./cookies.js"
+
 class World {
   constructor(canvas) {
     this.loading = [];
@@ -125,3 +127,5 @@ class World {
     }
   }
 }
+
+export default World;

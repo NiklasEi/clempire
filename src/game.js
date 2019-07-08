@@ -1,3 +1,7 @@
+import CookieUtility from "./cookies.js"
+import Alert from "./alert.js"
+import AudioPlayer from "./audio.js"
+
 class Clempire {
   constructor() {
     this.audio = new AudioPlayer();
@@ -45,7 +49,7 @@ class Clempire {
   prepareBuildings() {
     this.buildings = {};
     for (let building in this.buildingsData) {
-      this.buildings[this.buildingsData]
+      this.buildings[this.buildingsData[building]]
     }
   }
 
@@ -115,3 +119,5 @@ class Requirement {
     }
   }
 }
+
+export {Clempire, Requirement};

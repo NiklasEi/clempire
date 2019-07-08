@@ -6,7 +6,7 @@ class AudioPlayer {
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
       this.audioContext = new AudioContext();
       if (window.Worker) {
-        this.worker = new Worker("soundWorker.js")
+        this.worker = new Worker("src/soundWorker.js")
         this.worker.onmessage = function (e) {
           this.audioContext.decodeAudioData(e.data.response, function (buffer) {
             this.sounds[e.data.id].buffer = buffer;
@@ -57,3 +57,5 @@ class Sound {
     })
   }
 }
+
+export default AudioPlayer

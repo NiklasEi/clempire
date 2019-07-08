@@ -4,3 +4,5 @@ class NumbersUtility {
     return number.toString();
   }
 }
+
+export default NumbersUtility

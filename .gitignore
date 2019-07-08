@@ -1,2 +1,4 @@
 cc.*
 .vscode/
+node_modules
+clempire.bundle.*

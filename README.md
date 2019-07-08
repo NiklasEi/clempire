@@ -5,3 +5,12 @@
 ***An idle game written in HTML5***
 
 Clempire lets you gather resources, build up your small empire (a little town...), improve your resource collecting and make progress through technologies and achievements.
+
+## Installation
+
+```bash
+npm install
+npm run build
+```
+
+The second command will create a `clempire.bundle.js` file wich is included in `index.html`.

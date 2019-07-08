@@ -1,9 +1,5 @@
 class CookieUtility {
-  static saveCookie(name, value) {
-    saveCookie(name, value, new Date().setFullYear(2035).toISOString(), "/");
-  }
-
-  static saveCookie(name, value, date, path) {
+  static saveCookie(name, value, date = "2034-12-23T23:00:00.000Z", path = "/") {
     document.cookie = name + "=" + value + "; expires=" + date + "; path=" + path;
   }
 
@@ -23,3 +19,5 @@ class CookieUtility {
     return "";
   }
 }
+
+export default CookieUtility

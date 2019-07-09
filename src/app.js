@@ -153,7 +153,7 @@ class Session {
       let display = document.createElement("div");
       let upgrade = this.game.upgradeData[this.game.shownUpgrades[upgradeIndex]];
       display.style.background = `url(${upgrade.icon})  no-repeat`;
-      display.setAttribute("title", `${upgrade.title}\n\n${upgrade.description}`)
+      display.setAttribute("title", `${upgrade.title}\n\n${upgrade.description}\n\ncost:${Object.keys(upgrade.cost).map(key => "\n   " + key + ": " + upgrade.cost[key]).join("")}`)
       display.onclick = this.game.upgradeClick.bind({
         upgrade: upgrade,
         session: this

@@ -136,6 +136,7 @@ class Clempire {
     ]);
     for (let source in this.sourcesData) {
       this.sourcesData[source].id = source;
+      this.sourcesData[source].multiplier = 1;
       this.audio.addSound(this.sourcesData[source].id, this.sourcesData[source].sound);
     }
     let loadingIcons = [];
@@ -170,7 +171,7 @@ class Clempire {
   resourceFieldClick() {
     // called for a click on a resource field.
     // this is bound to {session: session, source: clickedSource}
-    let count = 1;
+    let count = this.session.game.sourcesData[this.source.id].multiplier;
     this.session.game.resources.current[this.source.id] += count;
     this.session.game.resources.gathered[this.source.id] += count;
     this.session.game.audio.playSound(this.source.id);
@@ -217,9 +218,9 @@ class Clempire {
             if(this.buildings[what] !== undefined) {
               // multiply building production
               this.buildingsData[what].production.multiply(upgrade.effect.multiplier[what]);
-            } else if (undefined){
+            } else if (this.sourcesData[what] !== undefined){
               // It's a source, hence multiply clicking gains
-
+              this.sourcesData[what].multiplier *= upgrade.effect.multiplier[what];
             } else {
               throw new Error("Failed to multiply '" + what + "'   ... what do you mean?")
             }

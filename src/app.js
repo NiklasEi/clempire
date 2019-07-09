@@ -108,7 +108,7 @@ class Session {
       anchor.classList.add("resource-field-anchor");
       anchor.setAttribute("data-source-field", `${count + 1}`);
       anchor.style.left = `${15 + (70 / (length - 1)) * count}%`;
-      anchor.style.top = "170px";
+      anchor.style.top = this.canvas.width > 1000 ? (this.canvas.height * 0.45) + "px" : "170px";
       let imgField = document.createElement("div");
       imgField.classList.add("resource-image-field");
       anchor.appendChild(imgField);

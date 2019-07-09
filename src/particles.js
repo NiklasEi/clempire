@@ -3,7 +3,7 @@ class Particles {
     this.canvas = canvas;
     this.limit = 50;
     this.particles = [];
-    this.delta = 100;
+    this.delta = 25;
     this.intervallId = setInterval(this.tick.bind(this), this.delta);
   }
 
@@ -45,8 +45,8 @@ class Particle {
   }
 
   linger() {
-    this.x += Math.random() * 8 - 4;
-    this.y -= 4;
+    this.x += Math.random() * 2 - 1;
+    this.y -= 1;
     return this;
   }
 }

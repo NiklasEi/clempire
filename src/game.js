@@ -115,7 +115,7 @@ class Clempire {
     this.session.game.resources.gathered[this.source.id] += count;
     this.session.game.audio.playSound(this.source.id);
     let img = this.session.game.resourcesData[this.source.id].img;
-    this.session.game.particles.spawn(img, this.coordinates[0], this.coordinates[1], "+ " + count, 5000);
+    this.session.game.particles.spawn(img, this.coordinates[0], this.coordinates[1], "+ " + count, 4000);
   }
 
   buildingClick() {

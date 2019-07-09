@@ -9,12 +9,11 @@ class World {
     this.stonesImgCount = 11;
     this.stonesCount = 300;
     this.worldSeed = CookieUtility.getCookie("world.seed");
-    if(!this.worldSeed || this.worldSeed.length <= 0) {
+    if (!this.worldSeed || this.worldSeed.length <= 0) {
       this.worldSeed = (Math.random() + 1).toString(36).substring(7);
       CookieUtility.saveCookie("world.seed", this.worldSeed);
     }
     console.log("Current world seed: " + this.worldSeed);
-    Math.seedrandom(this.worldSeed);
     this.center = [Math.floor(canvas.width / 2), Math.floor(canvas.height / 2)];
     this.townRadius = 200;
     this.loading.push(this.loadTrees());
@@ -34,16 +33,19 @@ class World {
     });
   }
 
-  drawWorld() {
+  drawWorld(game) {
     return new Promise(function (resolve) {
       Promise.all(this.loading).then(function () {
+        Math.seedrandom(this.worldSeed);
         this.placeTrees();
         this.placeStones();
-        this.placeTown();
+        this.placeTown(game);
         let context = this.canvas.getContext("2d")
+        context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.toDraw.sort((a, b) => a.y + a.img.height - (b.y + b.img.height)).forEach(function (tree) {
           context.drawImage(tree.img, 0, 0, tree.img.width, tree.img.height, tree.x, tree.y, tree.img.width, tree.img.height)
         })
+        this.toDraw = [];
         resolve();
       }.bind(this))
     }.bind(this))
@@ -85,12 +87,20 @@ class World {
     }
   }
 
-  placeTown() {
+  placeTown(game) {
     this.toDraw.push({
       x: this.center[0] - this.town.tavern.width / 2,
       y: this.center[1] - this.town.tavern.height / 2 - 100,
       img: this.town.tavern
     });
+    if (game.buildings.lumberjack > 0) {
+      //game.buildingsData
+      this.toDraw.push({
+        x: this.center[0] - this.town.tavern.width / 2 - 100 / 1.4,
+        y: this.center[1] - this.town.tavern.height / 2 + 100 / 1.4,
+        img: this.town.lumberjack
+      });
+    }
   }
 
   async loadTrees() {
@@ -119,7 +129,18 @@ class World {
 
   async loadTown() {
     let loadingTown = []
-    loadingTown.push(this.loadImage(`assets/images/town/tavern.png`).then(response => {return {id: "tavern", img: response}}))
+    loadingTown.push(this.loadImage(`assets/images/town/tavern.png`).then(response => {
+      return {
+        id: "tavern",
+        img: response
+      }
+    }))
+    loadingTown.push(this.loadImage(`assets/images/town/lumberjack.png`).then(response => {
+      return {
+        id: "lumberjack",
+        img: response
+      }
+    }))
     loadingTown = await Promise.all(loadingTown);
     this.town = {}
     for (let i = 0; i < loadingTown.length; i++) {

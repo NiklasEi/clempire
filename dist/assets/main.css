@@ -56,19 +56,15 @@ body {
 }
 
 header {
+  padding: 0 10%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background-color: gray;
   height: 50px;
   flex-shrink: 0;
 }
-
-#buildings > div {
-  cursor: pointer;
-}
-
 header .showOverlayBtn {
   cursor: pointer;
 }
@@ -138,6 +134,8 @@ main {
 #resources {
   display: inline;
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 #resources li {
@@ -168,16 +166,17 @@ main {
   display: inline-block;
 }
 
-#buildings {
+#upgrades {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
-#buildings>div {
+#upgrades>div {
   height: 32px;
   width: 32px;
+  cursor: pointer;
 }
 
 footer {

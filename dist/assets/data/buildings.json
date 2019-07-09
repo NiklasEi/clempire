@@ -1,28 +1,9 @@
-[
-  {
-    "id": "lumber-jack",
+{
+  "lumberjack": {
     "title": "Lumber Jack",
-    "icon": "assets/images/lumber.png",
-    "description": "The lumber jack will help with your wood production.",
-    "requirements": [
-      {
-        "upgrades": {
-          "has": ["jack-the-lumberjack"]
-        },
-        "resources": {
-          "gathered": {
-            "wood": 100
-          }
-        }
-      }
-    ],
-    "cost": {
-      "wood": 200
-    },
-    "effect": {
-      "production": {
-        "wood": 0.5
-      }
+    "description": "The lumberjack will help with your wood production.",
+    "production": {
+      "wood": 1
     }
   }
-]
+}

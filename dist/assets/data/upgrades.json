@@ -1,36 +1,39 @@
-[
-  {
-    "id": "jack-the-lumberjack",
+{
+  "1": {
     "title": "Jack the Lumberjack",
     "description": "A big, bearded man walks out of the forest. He introcues himself as Jack and offers to help you with your wood production\n\"For a moment I was really scared\"\n- You",
     "icon": "assets/images/lumber.png",
-    "requirements": [
-      {
-        "resources": {
-          "gathered": {
-            "wood": 100
-          }
+    "requirement": {
+      "resources": {
+        "gathered": {
+          "wood": 2
         }
       }
-    ],
+    },
     "cost": {
-      "wood": 100,
-      "stone": 100
+      "wood": 2,
+      "stone": 2
+    },
+    "effect": {
+      "build": {
+        "lumberjack": 1
+      }
     }
-  },{
-    "id": "an-axe",
+  },
+  "2": {
     "title": "Actual axe",
     "description": "Now your Lumber doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack",
-    "icon": "assets/images/up.png",
-    "requirements": [
-      {
-        "resources": {
-          "gathered": {
-            "wood": 250
-          }
+    "icon": "assets/images/lumber.png",
+    "requirement": {
+      "resources": {
+        "gathered": {
+          "wood": 250
+        },
+        "produced": {
+          "wood": 250
         }
       }
-    ],
+    },
     "cost": {
       "wood": 200
     },
@@ -39,5 +42,45 @@
         "wood": 0.5
       }
     }
+  },
+  "3": {
+    "title": "1 wood",
+    "description": "Now your Lumber doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack",
+    "icon": "assets/images/lumber.png",
+    "requirement": {
+      "resources": {
+        "gathered": {
+          "wood": 1
+        }
+      }
+    },
+    "cost": {
+      "wood": 5
+    },
+    "effect": {
+      "production": {
+        "wood": 0.5
+      }
+    }
+  },
+  "4": {
+    "title": "1 stone",
+    "description": "Now your Lumber doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack",
+    "icon": "assets/images/lumber.png",
+    "requirement": {
+      "resources": {
+        "gathered": {
+          "stone": 1
+        }
+      }
+    },
+    "cost": {
+      "stone": 200
+    },
+    "effect": {
+      "production": {
+        "wood": 0.5
+      }
+    }
   }
-]
+}

@@ -4,21 +4,35 @@ import Particles from "./particles.js"
 import AudioPlayer from "./audio.js"
 
 class Clempire {
-  constructor() {
+  constructor(session) {
+    this.session = session;
     this.audio = new AudioPlayer();
     let particlesCanvas = document.getElementById("particles");
     this.particles = new Particles(particlesCanvas)
+    this.shownUpgrades = [];
+    this.autoSaveIntervall = 1 * 60 * 1000; // autosave every minute
+    this.checkRequirementsIntervall = 1000; // autosave every minute
     this.load = new Promise(function (resolve, reject) {
       let now = (new Date).getTime();
       console.log("Loading data ...");
       this.loadData().catch(e => reject(e)).then(function () {
         this.prepare()
+        this.autoSaveId = setInterval(this.autoSave.bind(this), this.autoSaveIntervall);
+        this.checkRequirementsId = setInterval(this.checkRequirements.bind(this), this.checkRequirementsIntervall);
         console.log(`... done in ${((new Date()).getTime() - now)}ms`);
         resolve()
       }.bind(this));
     }.bind(this));
-    this.autoSaveIntervall = 120000;
-    this.autoSaveId = setInterval(this.autoSave.bind(this), this.autoSaveIntervall);
+  }
+
+  checkRequirements() {
+    let newUpgrades = this.openUpgrades.filter(id => this.isReqMet(this.upgradeData[id].requirement));
+    if (newUpgrades.length > 0) {
+      this.shownUpgrades = this.shownUpgrades.concat(newUpgrades);
+      // ToDo sort shownUpgrades. By total price?
+      this.openUpgrades = this.openUpgrades.filter(id => !newUpgrades.includes(id))
+      this.upgradeChanges = true; // set flag to render upgrades new
+    }
   }
 
   autoSave() {
@@ -27,12 +41,29 @@ class Clempire {
         CookieUtility.saveCookie("resources." + type + "." + resource, this.resources[type][resource])
       }
     }
+    for (let building in this.buildings) {
+      CookieUtility.saveCookie("buildings." + building, this.buildings[building])
+    }
+    CookieUtility.saveCookie("upgrades", this.activeUpgrades.join(","))
     Alert.autoSave();
   }
 
   prepare() {
     this.prepareResources();
     this.prepareBuildings();
+    this.prepareUpgrades();
+    this.checkRequirements();
+  }
+
+  prepareUpgrades() {
+    this.openUpgrades = [];
+    let fromSave = CookieUtility.getCookie("upgrades");
+    this.activeUpgrades = (fromSave && !isNaN(parseInt(fromSave))) ? fromSave.split(",").map(id => parseInt(id)) : [];
+    console.log("active upgrades: " + this.activeUpgrades.join(","))
+    for (let upgrade in this.upgradeData) {
+      if (this.activeUpgrades.includes(parseInt(upgrade))) continue;
+      this.openUpgrades.push(upgrade);
+    }
   }
 
   prepareResources() {
@@ -52,7 +83,10 @@ class Clempire {
   prepareBuildings() {
     this.buildings = {};
     for (let building in this.buildingsData) {
-      this.buildings[this.buildingsData[building].id] = 0;
+      this.buildingsData[building].id = building;
+      let fromSave = CookieUtility.getCookie("buildings." + building)
+      this.buildings[building] = (fromSave && fromSave > 0) ? parseInt(fromSave) : 0;
+      this.buildingsData[building].production = new Production(this, this.buildingsData[building]);
     }
   }
 
@@ -94,6 +128,10 @@ class Clempire {
       this.resourcesData[resource].img = loadingIcons[i];
       i++;
     }
+    // put IDs also into the upgrade obj
+    for(let upgradeId in this.upgradeData) {
+      this.upgradeData[upgradeId].id = upgradeId;
+    }
   }
 
   loadImage(url) {
@@ -118,15 +156,58 @@ class Clempire {
     this.session.game.particles.spawn(img, this.coordinates[0], this.coordinates[1], "+ " + count, 4000);
   }
 
-  buildingClick() {
-    // called for a click on a resource field.
-    // this is bound to {session: session, building: clickedBuilding}
-    this.session.game.buildings[this.building.id] ++;
+  upgradeClick() {
+    // called for a click on an upgrade
+    // this is bound to {session: session, upgrade: upgrade}
+    if (this.session.game.canPay(this.upgrade.cost)) {
+      this.session.game.pay(this.upgrade.cost)
+      this.session.game.activateUpgrade(this.upgrade)
+    }
+  }
+
+  activateUpgrade(upgrade) {
+    if(this.shownUpgrades.includes(upgrade.id)) {
+      this.shownUpgrades = this.shownUpgrades.filter(id => id !== upgrade.id);
+      this.upgradeChanges = true;
+    } else if (this.openUpgrades.includes(upgrade.id)) {
+      this.openUpgrades = this.openUpgrades.filter(id => id !== upgrade.id);
+    }
+    for (let effect in upgrade.effect) {
+      switch(effect.toLowerCase()) {
+        case "build":
+          for (let build in upgrade.effect.build) {
+            if (this.buildings[build] === undefined) {
+              throw new Error("Unknown building '" + build + "' in effect of upgrade nr " + upgrade.id)
+            }
+            if (this.buildings[build] === 0 && upgrade.effect.build[build] > 0) {
+              this.buildings[build] += upgrade.effect.build[build];
+              this.session.world.drawWorld(this);
+            } else {
+              this.buildings[build] += upgrade.effect.build[build];
+            }
+          }
+          break;
+      }
+    }
+    this.activeUpgrades.push(upgrade.id);
+  }
+
+  canPay(cost) {
+    for(let resource in cost) {
+      if (cost[resource] > this.resources.current[resource]) return false;
+    }
+    return true;
+  }
+
+  pay(cost) {
+    for(let resource in cost) {
+      this.resources.current[resource] -= cost[resource];
+    }
   }
 
   isReqMet(req) {
     for (let category in req.resources) {
-      for (let resource in this.resourcesData) {
+      for (let resource in req.resources[category]) {
         if (!req.resources[category][resource] || req.resources[category][resource] > this.resources[category][resource]) {
           return false;
         }
@@ -136,14 +217,21 @@ class Clempire {
   }
 }
 
-class Requirement {
-  constructor() {
-    this.resources = {
-      produced: {},
-      gathered: {},
-      total: {}
-    }
+class Production {
+  constructor(game, building) {
+    this.baseProduction = building.production;
+    this.id = building.id;
+    this.multiplier = 1;
+    this.game = game;
+  }
+
+  multiply(multiplier) {
+    this.multiplier *= multiplier;
+  }
+
+  calc() {
+    return this.baseProduction * this.game.buildings[this.id] * this.multiplier;
   }
 }
 
-export {Clempire, Requirement};
+export default Clempire;

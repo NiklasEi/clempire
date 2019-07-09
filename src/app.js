@@ -1,4 +1,4 @@
-import {Clempire} from "./game.js"
+import Clempire from "./game.js"
 import World from "./world.js"
 import NumbersUtility from "./numbers.js"
 
@@ -16,7 +16,7 @@ class Session {
   }
 
   initialize() {
-    this.game = new Clempire();
+    this.game = new Clempire(this);
     this.game.load.then(function () {
       window.addEventListener('resize', this.resizeHandler(), true);
       this.drawGame();
@@ -58,9 +58,9 @@ class Session {
     particlesCanvas.height = leftSide.offsetHeight;
 
     this.world = new World(this.canvas);
-    this.world.drawWorld().then(function () {
+    this.world.drawWorld(this.game).then(function () {
       this.displaySources();
-      this.displayBuildings();
+      this.displayUpgrades();
       this.displayResources();
       this.startGame();
     }.bind(this));
@@ -72,6 +72,7 @@ class Session {
 
   tick() {
     this.updateResources();
+    if(this.game.upgradeChanges) this.displayUpgrades();
     if (((new Date()).getTime() % this.titleRotationTime) <= Math.floor(1000 / this.gameTicks)) this.rotateTitleDisplay();
   }
 
@@ -141,22 +142,23 @@ class Session {
     }
   }
 
-  displayBuildings() {
-    this.buildingsDisplay = document.getElementById("buildings");
+  displayUpgrades() {
+    this.game.upgradeChanges = false;
+    this.ugradeDisplay = document.getElementById("upgrades");
     // clear list in case of a redraw due to window resize or new resources
-    while (this.buildingsDisplay.firstChild) {
-      this.buildingsDisplay.removeChild(this.buildingsDisplay.firstChild);
+    while (this.ugradeDisplay.firstChild) {
+      this.ugradeDisplay.removeChild(this.ugradeDisplay.firstChild);
     }
-    for (let buildingIndex in this.game.buildingsData) {
+    for (let upgradeIndex in this.game.shownUpgrades) {
       let display = document.createElement("div");
-      let building = this.game.buildingsData[buildingIndex];
-      display.style.background = `url(${building.icon})  no-repeat`;
-      display.setAttribute("title", `${building.title}\n\n${building.description}`)
-      display.onclick = this.game.buildingClick.bind({
-        building: building,
+      let upgrade = this.game.upgradeData[this.game.shownUpgrades[upgradeIndex]];
+      display.style.background = `url(${upgrade.icon})  no-repeat`;
+      display.setAttribute("title", `${upgrade.title}\n\n${upgrade.description}`)
+      display.onclick = this.game.upgradeClick.bind({
+        upgrade: upgrade,
         session: this
       });
-      this.buildingsDisplay.appendChild(display);
+      this.ugradeDisplay.appendChild(display);
     }
   }
 
@@ -181,3 +183,17 @@ class Session {
 
 let session = new Session();
 window.addEventListener("load", session.initialize.bind(session), true);
+
+/* dev tools */
+window.resetGame = function() {
+  session.game.resources = {
+    produced: {},
+    gathered: {},
+    current: {}
+  };
+  for (let type in session.game.resources) {
+    for (let resource in session.game.resourcesData) {
+      session.game.resources[type][resource] = 0;
+    }
+  }
+}

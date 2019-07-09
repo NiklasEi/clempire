@@ -11,18 +11,36 @@ class Clempire {
     this.particles = new Particles(particlesCanvas)
     this.shownUpgrades = [];
     this.autoSaveIntervall = 1 * 60 * 1000; // autosave every minute
-    this.checkRequirementsIntervall = 1000; // autosave every minute
+    this.gameIntervall = 1000; // autosave every minute
     this.load = new Promise(function (resolve, reject) {
       let now = (new Date).getTime();
       console.log("Loading data ...");
       this.loadData().catch(e => reject(e)).then(function () {
         this.prepare()
         this.autoSaveId = setInterval(this.autoSave.bind(this), this.autoSaveIntervall);
-        this.checkRequirementsId = setInterval(this.checkRequirements.bind(this), this.checkRequirementsIntervall);
+        this.gameIntervallId = setInterval(this.gameTick.bind(this), this.gameIntervall);
         console.log(`... done in ${((new Date()).getTime() - now)}ms`);
         resolve()
       }.bind(this));
     }.bind(this));
+  }
+
+  gameTick() {
+    this.checkRequirements();
+    this.produce();
+  }
+
+  produce() {
+    for (let building in this.buildingsData) {
+      let produceCount = this.buildingsData[building].production.calc();
+      let productionKey = this.buildingsData[building].production.key; // e.g. "wood"
+      let img = this.session.game.resourcesData[productionKey].img;
+      if (!isNaN(produceCount) && produceCount > 0) {
+        this.particles.spawn(img, this.buildingsData[building].x, this.buildingsData[building].y, "+ " + produceCount, 4000);
+        this.session.game.resources.current[productionKey] += produceCount;
+        this.session.game.resources.produced[productionKey] += produceCount;
+      }
+    }
   }
 
   checkRequirements() {
@@ -59,9 +77,11 @@ class Clempire {
     this.openUpgrades = [];
     let fromSave = CookieUtility.getCookie("upgrades");
     this.activeUpgrades = (fromSave && !isNaN(parseInt(fromSave))) ? fromSave.split(",").map(id => parseInt(id)) : [];
-    console.log("active upgrades: " + this.activeUpgrades.join(","))
     for (let upgrade in this.upgradeData) {
-      if (this.activeUpgrades.includes(parseInt(upgrade))) continue;
+      if (this.activeUpgrades.includes(parseInt(upgrade))) {
+        this.activateUpgrade(this.upgradeData[upgrade]);
+        continue;
+      }
       this.openUpgrades.push(upgrade);
     }
   }
@@ -115,10 +135,12 @@ class Clempire {
       loadingUpgrades
     ]);
     for (let source in this.sourcesData) {
+      this.sourcesData[source].id = source;
       this.audio.addSound(this.sourcesData[source].id, this.sourcesData[source].sound);
     }
     let loadingIcons = [];
     for (let resource in this.resourcesData) {
+      this.resourcesData[resource].id = resource;
       this.resourcesData[resource].img = this.loadImage(this.resourcesData[resource].icon).then(response => response)
       loadingIcons.push(this.resourcesData[resource].img);
     }
@@ -129,7 +151,7 @@ class Clempire {
       i++;
     }
     // put IDs also into the upgrade obj
-    for(let upgradeId in this.upgradeData) {
+    for (let upgradeId in this.upgradeData) {
       this.upgradeData[upgradeId].id = upgradeId;
     }
   }
@@ -161,20 +183,22 @@ class Clempire {
     // this is bound to {session: session, upgrade: upgrade}
     if (this.session.game.canPay(this.upgrade.cost)) {
       this.session.game.pay(this.upgrade.cost)
-      this.session.game.activateUpgrade(this.upgrade)
+      // flag loaded=false in order to also gain buildings from upgrades and other stuff that is additionally saved/loaded
+      this.session.game.activateUpgrade(this.upgrade, false);
     }
   }
 
-  activateUpgrade(upgrade) {
-    if(this.shownUpgrades.includes(upgrade.id)) {
+  activateUpgrade(upgrade, loaded=true) {
+    if (this.shownUpgrades.includes(upgrade.id)) {
       this.shownUpgrades = this.shownUpgrades.filter(id => id !== upgrade.id);
       this.upgradeChanges = true;
     } else if (this.openUpgrades.includes(upgrade.id)) {
       this.openUpgrades = this.openUpgrades.filter(id => id !== upgrade.id);
     }
     for (let effect in upgrade.effect) {
-      switch(effect.toLowerCase()) {
+      switch (effect.toLowerCase()) {
         case "build":
+          if (loaded) break;
           for (let build in upgrade.effect.build) {
             if (this.buildings[build] === undefined) {
               throw new Error("Unknown building '" + build + "' in effect of upgrade nr " + upgrade.id)
@@ -187,20 +211,34 @@ class Clempire {
             }
           }
           break;
+
+        case "multiplier":
+          for (let what in upgrade.effect.multiplier) {
+            if(this.buildings[what] !== undefined) {
+              // multiply building production
+              this.buildingsData[what].production.multiply(upgrade.effect.multiplier[what]);
+            } else if (undefined){
+              // It's a source, hence multiply clicking gains
+
+            } else {
+              throw new Error("Failed to multiply '" + what + "'   ... what do you mean?")
+            }
+          }
+          break;
       }
     }
     this.activeUpgrades.push(upgrade.id);
   }
 
   canPay(cost) {
-    for(let resource in cost) {
+    for (let resource in cost) {
       if (cost[resource] > this.resources.current[resource]) return false;
     }
     return true;
   }
 
   pay(cost) {
-    for(let resource in cost) {
+    for (let resource in cost) {
       this.resources.current[resource] -= cost[resource];
     }
   }
@@ -219,7 +257,8 @@ class Clempire {
 
 class Production {
   constructor(game, building) {
-    this.baseProduction = building.production;
+    this.key = Object.keys(building.production)[0];
+    this.baseProduction = building.production[this.key];
     this.id = building.id;
     this.multiplier = 1;
     this.game = game;

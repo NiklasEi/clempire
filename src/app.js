@@ -99,7 +99,7 @@ class Session {
 
   placeResourceAnchors() {
     let count = 0;
-    let length = this.game.sourcesData.length;
+    let length = Object.keys(this.game.sourcesData).length;
     let anchors = document.getElementById("anchors");
     while (anchors.firstChild) {
       anchors.removeChild(anchors.firstChild);
@@ -183,17 +183,3 @@ class Session {
 
 let session = new Session();
 window.addEventListener("load", session.initialize.bind(session), true);
-
-/* dev tools */
-window.resetGame = function() {
-  session.game.resources = {
-    produced: {},
-    gathered: {},
-    current: {}
-  };
-  for (let type in session.game.resources) {
-    for (let resource in session.game.resourcesData) {
-      session.game.resources[type][resource] = 0;
-    }
-  }
-}

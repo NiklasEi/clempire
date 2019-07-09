@@ -6,13 +6,13 @@
     "requirement": {
       "resources": {
         "gathered": {
-          "wood": 2
+          "wood": 50
         }
       }
     },
     "cost": {
-      "wood": 2,
-      "stone": 2
+      "wood": 50,
+      "stone": 50
     },
     "effect": {
       "build": {
@@ -27,59 +27,39 @@
     "requirement": {
       "resources": {
         "gathered": {
-          "wood": 250
+          "wood": 100
         },
         "produced": {
-          "wood": 250
+          "wood": 100
         }
       }
     },
     "cost": {
-      "wood": 200
+      "wood": 500
     },
     "effect": {
-      "production": {
-        "wood": 0.5
+      "multiplier": {
+        "lumberjack": 2
       }
     }
   },
   "3": {
-    "title": "1 wood",
-    "description": "Now your Lumber doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack",
+    "title": "Axe lessons",
+    "description": "You asked Jack for some advice with your axe handling.\nHe simply told you to not use the blund side, but the sharp one. You dummy...\n\nThis doubles your wood production!",
     "icon": "assets/images/lumber.png",
     "requirement": {
       "resources": {
         "gathered": {
-          "wood": 1
+          "wood": 50
         }
       }
     },
     "cost": {
-      "wood": 5
+      "wood": 100
     },
     "effect": {
-      "production": {
-        "wood": 0.5
-      }
-    }
-  },
-  "4": {
-    "title": "1 stone",
-    "description": "Now your Lumber doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack",
-    "icon": "assets/images/lumber.png",
-    "requirement": {
-      "resources": {
-        "gathered": {
-          "stone": 1
-        }
-      }
-    },
-    "cost": {
-      "stone": 200
-    },
-    "effect": {
-      "production": {
-        "wood": 0.5
+      "multiplier": {
+        "wood": 2
       }
     }
   }

@@ -94,10 +94,11 @@ class World {
       img: this.town.tavern
     });
     if (game.buildings.lumberjack > 0) {
-      //game.buildingsData
+      game.buildingsData.lumberjack.x = this.center[0] - 100 / 1.4;
+      game.buildingsData.lumberjack.y = this.center[1] + 100 / 1.4;
       this.toDraw.push({
-        x: this.center[0] - this.town.tavern.width / 2 - 100 / 1.4,
-        y: this.center[1] - this.town.tavern.height / 2 + 100 / 1.4,
+        x: game.buildingsData.lumberjack.x - this.town.tavern.width / 2,
+        y: game.buildingsData.lumberjack.y - this.town.tavern.height / 2,
         img: this.town.lumberjack
       });
     }

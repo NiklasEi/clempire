@@ -82,7 +82,7 @@ class Clempire {
         this.activateUpgrade(this.upgradeData[upgrade]);
         continue;
       }
-      this.openUpgrades.push(upgrade);
+      this.openUpgrades.push(parseInt(upgrade));
     }
   }
 
@@ -153,7 +153,7 @@ class Clempire {
     }
     // put IDs also into the upgrade obj
     for (let upgradeId in this.upgradeData) {
-      this.upgradeData[upgradeId].id = upgradeId;
+      this.upgradeData[upgradeId].id = parseInt(upgradeId);
     }
   }
 
@@ -245,12 +245,16 @@ class Clempire {
   }
 
   isReqMet(req) {
+    console.log(this.shownUpgrades)
     for (let category in req.resources) {
       for (let resource in req.resources[category]) {
         if (!req.resources[category][resource] || req.resources[category][resource] > this.resources[category][resource]) {
           return false;
         }
       }
+    }
+    for (let update in req.updates) {
+      if(!this.activeUpgrades.includes(req.updates[update])) return false;
     }
     return true;
   }

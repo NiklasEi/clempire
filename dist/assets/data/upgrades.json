@@ -21,7 +21,7 @@
   },
   "200": {
     "title": "Jack the Lumberjack",
-    "description": "A big, bearded man walks out of the forest. He introcues himself as Jack and offers to help you with your wood production\n\"For a moment I was really scared\"\n- You",
+    "description": "A big, bearded man walks out of the forest. He introcues himself as Jack and offers to help you with your wood production\n\"For a moment I was really scared\"\n- You\n\nGive Jack supplies for his house and he'll settle down.",
     "icon": "assets/images/lumber.png",
     "requirement": {
       "resources": {
@@ -42,7 +42,7 @@
   },
   "201": {
     "title": "Actual axe",
-    "description": "Now your Lumber doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack",
+    "description": "Now your lumberjack doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack\n\nThis doubles the lumberjack's production!",
     "icon": "assets/images/lumber.png",
     "requirement": {
       "resources": {
@@ -65,28 +65,28 @@
   },
   "300": {
     "title": "Get better at stone cutting...",
-    "description": "A big, bearded man walks out of the forest. He introcues himself as Jack and offers to help you with your wood production\n\"For a moment I was really scared\"\n- You",
-    "icon": "assets/images/lumber.png",
+    "description": "If you hit the cracks more stone breaks of! Who would have thought?\n\nThis doubles your stone production!",
+    "icon": "assets/images/stone.png",
     "requirement": {
       "updates": {
         "gathered": {
-          "wood": 50
+          "stone": 50
         }
       }
     },
     "cost": {
-      "wood": 250,
-      "stone": 100
+      "wood": 100,
+      "stone": 250
     },
     "effect": {
-      "build": {
-        "lumberjack": 1
+      "multiplier": {
+        "stone": 2
       }
     }
   },
   "400": {
     "title": "Fred the stonecutter",
-    "description": "One of Jack's helpers, Fred, seems to be more into rocks than trees. After Jack caught him hugging a large stone, he got fired... Couldn't you use a stonecutter?",
+    "description": "One of Jack's helpers, Fred, seems to be more into rocks than trees. After Jack caught him hugging a large stone, he got fired... Couldn't you use a stonecutter?\n\nBuild a house for Fred and he'll produce stone for you.",
     "icon": "assets/images/stone.png",
     "requirement": {
       "updates": [200]
@@ -98,6 +98,26 @@
     "effect": {
       "build": {
         "stonecutter": 1
+      }
+    }
+  },
+  "401": {
+    "title": "The high note",
+    "description": "Fred loves to sing while cutting stone. He just perfected the high notes. They make the rocks crack!\n\nThis doubles the stonecutter's production!",
+    "icon": "assets/images/stone.png",
+    "requirement": {
+      "resources": {
+        "produced": {
+          "stone": 50
+        }
+      }
+    },
+    "cost": {
+      "stone": 500
+    },
+    "effect": {
+      "multiplier": {
+        "stonecutter": 2
       }
     }
   }

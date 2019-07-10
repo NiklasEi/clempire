@@ -25,7 +25,7 @@
   "stonecutter": {
     "title": "Stonecutter",
     "description": "Fred works here and produces stone for you.",
-    "img": "assets/images/town/home.png",
+    "img": "assets/images/town/stonecutter.png",
     "production": {
       "stone": 0.1
     },

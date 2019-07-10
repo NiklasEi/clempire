@@ -1,16 +1,16 @@
 {
   "wood": {
-    "icon": "assets/images/wood.png",
+    "icon": "assets/images/resources/wood.png",
     "sound": "assets/sounds/axe-sound.ogg",
     "lable": "Wood"
   },
   "stone": {
-    "icon": "assets/images/stone.png",
+    "icon": "assets/images/resources/stone.png",
     "sound": "assets/sounds/pickaxe.ogg",
     "lable": "Stone"
   },
   "coins": {
-    "icon": "assets/images/coins.png",
+    "icon": "assets/images/resources/coins.png",
     "sound": "assets/sounds/axe-sound.ogg",
     "lable": "Coins"
   }

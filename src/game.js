@@ -181,13 +181,12 @@ class Clempire {
     this.session.game.particles.spawn(img, this.coordinates[0], this.coordinates[1], "+ " + count, 4000);
   }
 
-  upgradeClick() {
-    // called for a click on an upgrade
-    // this is bound to {session: session, upgrade: upgrade}
-    if (this.session.game.canPay(this.upgrade.cost)) {
-      this.session.game.pay(this.upgrade.cost)
+  upgradeClick(upgrade) {
+    if (this.canPay(upgrade.cost)) {
+      this.pay(upgrade.cost);
+      document.querySelector(".tooltip").remove() // remove open tooltips
       // flag loaded=false in order to also gain buildings from upgrades and other stuff that is additionally saved/loaded
-      this.session.game.activateUpgrade(this.upgrade, false);
+      this.activateUpgrade(upgrade, false);
     }
   }
 

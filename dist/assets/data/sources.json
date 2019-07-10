@@ -1,12 +1,12 @@
 {
   "wood": {
-    "img": "assets/images/Tree.png",
+    "img": "assets/images/sources/Tree.png",
     "sound": "assets/sounds/axe-sound.ogg",
-    "cursor": "assets/images/axe.png"
+    "cursor": "assets/images/cursor/axe.png"
   },
   "stone": {
-    "img": "assets/images/rock.png",
+    "img": "assets/images/sources/rock.png",
     "sound": "assets/sounds/pick-axe.ogg",
-    "cursor": "assets/images/pick-axe.png"
+    "cursor": "assets/images/cursor/pick-axe.png"
   }
 }

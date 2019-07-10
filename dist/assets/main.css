@@ -13,6 +13,30 @@ body {
   flex-direction: column;
 }
 
+.tooltip {
+  position: absolute;
+  background: #646464;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-family: arial;
+  font-size: 12px;
+  text-shadow: 0px 1px 1px #000;
+  color: #ffc64a;
+  z-index: 4;
+}
+
+.tooltip:before {
+  content: " ";
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #646464;
+  position: absolute;
+  top: -7px;
+  left: 5px;
+}
+
 .overlay {
   width: 100vw;
   height: 0;
@@ -20,8 +44,8 @@ body {
   z-index: 4;
   left: 0;
   top: 0;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.8);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.8);
   overflow-y: hidden;
   transition: 0.5s;
 }
@@ -44,7 +68,8 @@ body {
   transition: 0.3s;
 }
 
-.overlay a:hover, .overlay a:focus {
+.overlay a:hover,
+.overlay a:focus {
   color: #f1f1f1;
 }
 
@@ -65,6 +90,7 @@ header {
   height: 50px;
   flex-shrink: 0;
 }
+
 header .showOverlayBtn {
   cursor: pointer;
 }
@@ -86,7 +112,7 @@ main {
   width: 100%;
 }
 
-#left-side > canvas {
+#left-side>canvas {
   position: absolute;
 }
 
@@ -140,6 +166,7 @@ main {
   margin: 0;
   height: 32px;
   min-width: 50px;
+  cursor: default;
 }
 
 #resources li>div,
@@ -169,6 +196,9 @@ main {
   height: 32px;
   width: 32px;
   cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 footer {

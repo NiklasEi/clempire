@@ -72,7 +72,7 @@ class Session {
 
   tick() {
     this.updateResources();
-    if(this.game.upgradeChanges) this.displayUpgrades();
+    if (this.game.upgradeChanges) this.displayUpgrades();
     if (((new Date()).getTime() % this.titleRotationTime) <= Math.floor(1000 / this.gameTicks)) this.rotateTitleDisplay();
   }
 
@@ -139,8 +139,19 @@ class Session {
       count.classList.add("resource-count");
       display.appendChild(count);
       display.setAttribute("data-resource", resource);
+      display.addEventListener("mouseover", function (display, resource) {
+        this.displayResourceToolTip(display, resource)
+      }.bind(this, display, resource))
+      display.addEventListener("mouseout", () => document.querySelector(".tooltip").remove());
       this.resourcesDisplay.appendChild(display);
     }
+  }
+
+  displayResourceToolTip(display, resource) {
+    let tooltipWrap = this.createTooltipWrap(display);
+    let currentCount = Math.floor(this.game.resources.current[resource]).toString();
+    let resourceData = this.game.resourcesData[resource]
+    tooltipWrap.appendChild(document.createTextNode(`${resourceData.lable}: ${currentCount}`));
   }
 
   displayUpgrades() {
@@ -150,17 +161,49 @@ class Session {
     while (this.ugradeDisplay.firstChild) {
       this.ugradeDisplay.removeChild(this.ugradeDisplay.firstChild);
     }
+    // remove possibly open tooltip
+    let openToolTip = document.querySelector(".tooltip"); 
+    if(openToolTip) openToolTip.remove();
     for (let upgradeIndex in this.game.shownUpgrades) {
       let display = document.createElement("div");
       let upgrade = this.game.upgradeData[this.game.shownUpgrades[upgradeIndex]];
-      display.style.background = `url(${upgrade.icon})  no-repeat`;
-      display.setAttribute("title", `${upgrade.title}\n\n${upgrade.description}\n\ncost:${Object.keys(upgrade.cost).map(key => "\n   " + key + ": " + upgrade.cost[key]).join("")}`)
-      display.onclick = this.game.upgradeClick.bind({
-        upgrade: upgrade,
-        session: this
-      });
+      display.style.backgroundImage = `url(${upgrade.icon})`;
+      //display.setAttribute("title", `${upgrade.title}\n\n${upgrade.description}\n\ncost:${Object.keys(upgrade.cost).map(key => "\n   " + key + ": " + upgrade.cost[key]).join("")}`)
+      display.onclick = this.game.upgradeClick.bind(this.game, upgrade);
+      display.addEventListener("mouseover", function (display, upgrade) {
+        this.displayUpgradeTooltip(display, upgrade)
+      }.bind(this, display, upgrade))
+      display.addEventListener("mouseout", () => document.querySelector(".tooltip").remove());
       this.ugradeDisplay.appendChild(display);
     }
+  }
+
+  displayUpgradeTooltip(display, upgrade) {
+    let tooltipWrap = this.createTooltipWrap(display);
+    tooltipWrap.innerHTML = `<h1>${upgrade.title}</h1>
+    ${upgrade.description.split("\n").map(line => `<p>${line}</p>`).join("")}
+    ${upgrade.quote ? `<p class='quote'>"${upgrade.quote.text}"</p>` : ""}
+    ${upgrade.quote ? `<p class='originator'>- ${upgrade.quote.originator}</p>` : ""}
+    ${upgrade.effectDescription ? `<p class='effectDescription'>${upgrade.effectDescription}</p>` : JSON.stringify(upgrade.effect)}
+    <div class='cost'>
+      <p>Cost:</p>
+      <ul>
+        ${Object.keys(upgrade.cost).map(resource => `<li>${resource}: ${upgrade.cost[resource]}</li>`).join("")}
+      </ul>
+    </div>`
+  }
+
+  createTooltipWrap(anchor) {
+    let tooltipWrap = document.createElement("div");
+    tooltipWrap.classList.add('tooltip');
+    var firstChild = document.body.firstChild;
+    firstChild.parentNode.insertBefore(tooltipWrap, firstChild);
+    var padding = 15;
+    var anchorProps = anchor.getBoundingClientRect();
+    var topPos = anchorProps.top + padding + anchorProps.height;
+    var leftPos = anchorProps.left + anchorProps.width / 2 - padding;
+    tooltipWrap.setAttribute('style', 'top:' + topPos + 'px;' + 'left:' + leftPos + 'px;')
+    return tooltipWrap;
   }
 
   updateResources() {

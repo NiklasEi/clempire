@@ -2,7 +2,7 @@
   "100": {
     "title": "Axe lessons",
     "description": "You asked Jack for some advice with your axe handling.\nHe simply told you to not use the blund side, but the sharp one. You dummy...\n\nThis doubles your wood production!",
-    "icon": "assets/images/lumber.png",
+    "icon": "assets/images/upgrades/lumber.png",
     "requirement": {
       "resources": {
         "gathered": {
@@ -21,8 +21,13 @@
   },
   "200": {
     "title": "Jack the Lumberjack",
-    "description": "A big, bearded man walks out of the forest. He introcues himself as Jack and offers to help you with your wood production\n\"For a moment I was really scared\"\n- You\n\nGive Jack supplies for his house and he'll settle down.",
-    "icon": "assets/images/lumber.png",
+    "description": "A big, bearded man walks out of the forest. He introcues himself as Jack and offers to help you with your wood production.",
+    "quote": {
+      "text": "For a moment I was really scared",
+      "originator": "You"
+    },
+    "effectDescription" : "Give Jack supplies for his house and he'll settle down.",
+    "icon": "assets/images/upgrades/lumber.png",
     "requirement": {
       "resources": {
         "gathered": {
@@ -43,7 +48,7 @@
   "201": {
     "title": "Actual axe",
     "description": "Now your lumberjack doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack\n\nThis doubles the lumberjack's production!",
-    "icon": "assets/images/lumber.png",
+    "icon": "assets/images/upgrades/lumber.png",
     "requirement": {
       "resources": {
         "gathered": {
@@ -66,7 +71,7 @@
   "300": {
     "title": "Get better at stone cutting...",
     "description": "If you hit the cracks more stone breaks of! Who would have thought?\n\nThis doubles your stone production!",
-    "icon": "assets/images/stone.png",
+    "icon": "assets/images/upgrades/stone.png",
     "requirement": {
       "resources": {
         "gathered": {
@@ -87,7 +92,7 @@
   "400": {
     "title": "Fred the stonecutter",
     "description": "One of Jack's helpers, Fred, seems to be more into rocks than trees. After Jack caught him hugging a large stone, he got fired... Couldn't you use a stonecutter?\n\nBuild a house for Fred and he'll produce stone for you.",
-    "icon": "assets/images/stone.png",
+    "icon": "assets/images/upgrades/stone.png",
     "requirement": {
       "updates": [200]
     },
@@ -104,7 +109,7 @@
   "401": {
     "title": "The high note",
     "description": "Fred loves to sing while cutting stone. He just perfected the high notes. They make the rocks crack!\n\nThis doubles the stonecutter's production!",
-    "icon": "assets/images/stone.png",
+    "icon": "assets/images/upgrades/stone.png",
     "requirement": {
       "resources": {
         "produced": {
@@ -118,6 +123,39 @@
     "effect": {
       "multiplier": {
         "stonecutter": 2
+      }
+    }
+  },
+  "1000": {
+    "title": "Spinach",
+    "description": "This stuff is pure power!",
+    "quote": {
+      "text": "I'm strong to the finich, 'cause I eats me Spinach, I'm Popeye the sailor man! (toot, toot)",
+      "originator": "Popeye"
+    },
+    "effectDescription" : "A steady supply of spinach for your town doubles all production and clicking!",
+    "icon": "assets/images/upgrades/spinach.png",
+    "requirement": {
+      "resources": {
+        "produced": {
+          "stone": 200,
+          "wood": 300
+        },
+        "gathered": {
+          "stone": 500,
+          "wood": 500
+        }
+      }
+    },
+    "cost": {
+      "coins": 50
+    },
+    "effect": {
+      "multiplier": {
+        "stonecutter": 2,
+        "lumberjack": 2,
+        "wood": 2,
+        "stone": 2
       }
     }
   }

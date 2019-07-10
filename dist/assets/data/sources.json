@@ -8,5 +8,8 @@
     "img": "assets/images/sources/rock.png",
     "sound": "assets/sounds/pick-axe.ogg",
     "cursor": "assets/images/cursor/pick-axe.png"
+  },
+  "coins": {
+    "sound": "assets/sounds/axe-sound.ogg"
   }
 }

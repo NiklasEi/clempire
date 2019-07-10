@@ -82,6 +82,7 @@ class Session {
     let counter = 0;
 
     for (let source in this.game.sourcesData) {
+      if(!this.game.sourcesData[source].img) continue;
       if (counter === resourceFields.length) {
         throw new Error("Not enogh resource fields!")
       }
@@ -99,12 +100,13 @@ class Session {
 
   placeResourceAnchors() {
     let count = 0;
-    let length = Object.keys(this.game.sourcesData).length;
+    let length = Object.keys(this.game.sourcesData).filter(key => this.game.sourcesData[key].img).length;
     let anchors = document.getElementById("resource-anchors");
     while (anchors.firstChild) {
       anchors.removeChild(anchors.firstChild);
     }
     for (let source in this.game.sourcesData) {
+      if(!this.game.sourcesData[source].img) continue;
       let anchor = document.createElement("div");
       anchor.classList.add("resource-field-anchor");
       anchor.style.left = `${15 + (70 / (length - 1)) * count}%`;

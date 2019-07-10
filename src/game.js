@@ -10,6 +10,7 @@ class Clempire {
     let particlesCanvas = document.getElementById("particles");
     this.particles = new Particles(particlesCanvas)
     this.shownUpgrades = [];
+    this.goldProbability = 0.01;
     this.autoSaveIntervall = 1 * 60 * 1000; // autosave every minute
     this.gameIntervall = 1000; // autosave every minute
     this.load = new Promise(function (resolve, reject) {
@@ -46,13 +47,17 @@ class Clempire {
   }
 
   checkRequirements() {
-    let newUpgrades = this.openUpgrades.filter(id => this.isReqMet(this.upgradeData[id].requirement));
+    let newUpgrades = this.openUpgrades.filter(id => this.upgradeData[id].requirement && this.isReqMet(this.upgradeData[id].requirement));
     if (newUpgrades.length > 0) {
-      this.shownUpgrades = this.shownUpgrades.concat(newUpgrades);
-      // ToDo sort shownUpgrades. By total price?
-      this.openUpgrades = this.openUpgrades.filter(id => !newUpgrades.includes(id))
-      this.upgradeChanges = true; // set flag to render upgrades new
+      this.showUpgrades(newUpgrades);
     }
+  }
+
+  showUpgrades(upgrades) {
+    this.shownUpgrades = this.shownUpgrades.concat(upgrades);
+    // ToDo sort shownUpgrades. By total price?
+    this.openUpgrades = this.openUpgrades.filter(id => !upgrades.includes(id))
+    this.upgradeChanges = true; // set flag to render upgrades new
   }
 
   autoSave() {
@@ -173,11 +178,18 @@ class Clempire {
   resourceFieldClick() {
     // called for a click on a resource field.
     // this is bound to {session: session, source: clickedSource}
+    let source = this.source.id;
     let count = this.session.game.sourcesData[this.source.id].multiplier;
-    this.session.game.resources.current[this.source.id] += count;
-    this.session.game.resources.gathered[this.source.id] += count;
-    this.session.game.audio.playSound(this.source.id);
-    let img = this.session.game.resourcesData[this.source.id].img;
+    if (this.source.id === "stone") {
+      if (Math.random() < this.session.game.goldProbability) {
+        count = 1;
+        source = "coins"
+      }
+    }
+    this.session.game.resources.current[source] += count;
+    this.session.game.resources.gathered[source] += count;
+    this.session.game.audio.playSound(source);
+    let img = this.session.game.resourcesData[source].img;
     this.session.game.particles.spawn(img, this.coordinates[0], this.coordinates[1], "+ " + count, 4000);
   }
 
@@ -225,6 +237,12 @@ class Clempire {
             } else {
               throw new Error("Failed to multiply '" + what + "'   ... what do you mean?")
             }
+          }
+          break;
+
+        case "game":
+          for (let variable in upgrade.effect.game) {
+            this[variable] = upgrade.effect.game[variable]
           }
           break;
       }

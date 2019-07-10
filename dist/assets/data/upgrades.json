@@ -26,7 +26,7 @@
       "text": "For a moment I was really scared",
       "originator": "You"
     },
-    "effectDescription" : "Give Jack supplies for his house and he'll settle down.",
+    "effectDescription" : "Give Jack supplies to settle down and he'll produce wood for you.",
     "icon": "assets/images/upgrades/lumber.png",
     "requirement": {
       "resources": {
@@ -156,6 +156,31 @@
         "lumberjack": 2,
         "wood": 2,
         "stone": 2
+      }
+    }
+  },
+  "1100": {
+    "title": "Lucky bastard",
+    "description": "You found gold while mining stone! That that you know what to look for, you should spot it more easily.",
+    "quote": {
+      "text": "Gold makes the ugly beautiful.",
+      "originator": "Molière"
+    },
+    "effectDescription" : "You can now find gold more often while mining stone",
+    "icon": "assets/images/upgrades/lucky.png",
+    "requirement": {
+      "resources": {
+        "gathered": {
+          "coins": 1
+        }
+      }
+    },
+    "cost": {
+      "coins": 1
+    },
+    "effect": {
+      "game": {
+        "goldProbability": 0.05
       }
     }
   }

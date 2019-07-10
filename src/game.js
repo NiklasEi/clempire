@@ -19,6 +19,7 @@ class Clempire {
         this.prepare()
         this.autoSaveId = setInterval(this.autoSave.bind(this), this.autoSaveIntervall);
         this.gameIntervallId = setInterval(this.gameTick.bind(this), this.gameIntervall);
+        this.testingStuff(); // ToDo: remove!! it's dev stuff
         console.log(`... done in ${((new Date()).getTime() - now)}ms`);
         resolve()
       }.bind(this));
@@ -32,7 +33,7 @@ class Clempire {
 
   produce() {
     for (let building in this.buildingsData) {
-      if(this.buildingsData[building].production === undefined) continue;
+      if (this.buildingsData[building].production === undefined) continue;
       let produceCount = this.buildingsData[building].production.calc();
       let productionKey = this.buildingsData[building].production.key; // e.g. "wood"
       let img = this.session.game.resourcesData[productionKey].img;
@@ -107,7 +108,7 @@ class Clempire {
       this.buildingsData[building].id = building;
       let fromSave = CookieUtility.getCookie("buildings." + building)
       this.buildings[building] = (fromSave && fromSave > 0) ? parseInt(fromSave) : 0;
-      if(this.buildingsData[building].production)this.buildingsData[building].production = new Production(this, this.buildingsData[building]);
+      if (this.buildingsData[building].production) this.buildingsData[building].production = new Production(this, this.buildingsData[building]);
     }
   }
 
@@ -190,7 +191,7 @@ class Clempire {
     }
   }
 
-  activateUpgrade(upgrade, loaded=true) {
+  activateUpgrade(upgrade, loaded = true) {
     if (this.shownUpgrades.includes(upgrade.id)) {
       this.shownUpgrades = this.shownUpgrades.filter(id => id !== upgrade.id);
       this.upgradeChanges = true;
@@ -216,10 +217,10 @@ class Clempire {
 
         case "multiplier":
           for (let what in upgrade.effect.multiplier) {
-            if(this.buildings[what] !== undefined) {
+            if (this.buildings[what] !== undefined) {
               // multiply building production
               this.buildingsData[what].production.multiply(upgrade.effect.multiplier[what]);
-            } else if (this.sourcesData[what] !== undefined){
+            } else if (this.sourcesData[what] !== undefined) {
               // It's a source, hence multiply clicking gains
               this.sourcesData[what].multiplier *= upgrade.effect.multiplier[what];
             } else {
@@ -254,9 +255,31 @@ class Clempire {
       }
     }
     for (let update in req.updates) {
-      if(!this.activeUpgrades.includes(req.updates[update])) return false;
+      if (!this.activeUpgrades.includes(req.updates[update])) return false;
     }
     return true;
+  }
+
+  testingStuff() {
+    let urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("wood")) {
+      let count = parseInt(urlParams.get("wood"));
+      this.resources.current.wood += count;
+      this.resources.gathered.wood += count;
+      this.resources.produced.wood += count;
+    }
+    if (urlParams.has("coins")) {
+      let count = parseInt(urlParams.get("coins"));
+      this.resources.current.coins += count;
+      this.resources.gathered.coins += count;
+      this.resources.produced.coins += count;
+    }
+    if (urlParams.has("stone")) {
+      let count = parseInt(urlParams.get("stone"));
+      this.resources.current.stone += count;
+      this.resources.gathered.stone += count;
+      this.resources.produced.stone += count;
+    }
   }
 }
 

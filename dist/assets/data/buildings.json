@@ -9,7 +9,7 @@
   },
   "lumberjack": {
     "title": "Lumberjack",
-    "description": "Jack relentlessly get's wood for you.",
+    "description": "Jack the lumberjack relentlessly get's wood for you.",
     "img": "assets/images/town/lumberjack.png",
     "production": {
       "wood": 0.1
@@ -34,7 +34,7 @@
       "wood": 250,
       "stone": 100
     },
-    "offsetX": 70,
-    "offsetY": 70
+    "offsetX": 100,
+    "offsetY": 0
   }
 }

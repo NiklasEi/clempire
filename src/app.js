@@ -116,6 +116,7 @@ class Session {
       let field = document.createElement("div");
       field.classList.add("resource-field");
       field.setAttribute("draggable", false);
+      field.setAttribute("oncontextmenu", "return false;");
       field.style.cursor = `url(${this.game.sourcesData[source].cursor}) 10 10, pointer`
       anchor.appendChild(field);
       anchors.appendChild(anchor);

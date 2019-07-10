@@ -245,7 +245,6 @@ class Clempire {
   }
 
   isReqMet(req) {
-    console.log(this.shownUpgrades)
     for (let category in req.resources) {
       for (let resource in req.resources[category]) {
         if (!req.resources[category][resource] || req.resources[category][resource] > this.resources[category][resource]) {

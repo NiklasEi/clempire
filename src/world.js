@@ -104,8 +104,8 @@ class World {
       });
     }
     if (game.buildings.stonecutter > 0) {
-      game.buildingsData.stonecutter.x = this.center[0] + 100 / 1.4;
-      game.buildingsData.stonecutter.y = this.center[1] + 100 / 1.4;
+      game.buildingsData.stonecutter.x = this.center[0] + 130 / 1.4;
+      game.buildingsData.stonecutter.y = this.center[1] + 70 / 1.4;
       this.toDraw.push({
         x: game.buildingsData.stonecutter.x - this.town.tavern.width / 2,
         y: game.buildingsData.stonecutter.y - this.town.tavern.height / 2,

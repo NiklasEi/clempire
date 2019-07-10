@@ -68,7 +68,7 @@
     "description": "If you hit the cracks more stone breaks of! Who would have thought?\n\nThis doubles your stone production!",
     "icon": "assets/images/stone.png",
     "requirement": {
-      "updates": {
+      "resources": {
         "gathered": {
           "stone": 50
         }

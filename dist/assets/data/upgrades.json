@@ -62,5 +62,43 @@
         "lumberjack": 2
       }
     }
+  },
+  "300": {
+    "title": "Get better at stone cutting...",
+    "description": "A big, bearded man walks out of the forest. He introcues himself as Jack and offers to help you with your wood production\n\"For a moment I was really scared\"\n- You",
+    "icon": "assets/images/lumber.png",
+    "requirement": {
+      "updates": {
+        "gathered": {
+          "wood": 50
+        }
+      }
+    },
+    "cost": {
+      "wood": 250,
+      "stone": 100
+    },
+    "effect": {
+      "build": {
+        "lumberjack": 1
+      }
+    }
+  },
+  "400": {
+    "title": "Fred the stonecutter",
+    "description": "One of Jack's helpers, Fred, seems to be more into rocks than trees. After Jack caught him hugging a large stone, he got fired... Couldn't you use a stonecutter?",
+    "icon": "assets/images/stone.png",
+    "requirement": {
+      "updates": [200]
+    },
+    "cost": {
+      "stone": 250,
+      "wood": 500
+    },
+    "effect": {
+      "build": {
+        "stonecutter": 1
+      }
+    }
   }
 }

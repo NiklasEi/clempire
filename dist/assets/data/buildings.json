@@ -1,9 +1,26 @@
 {
   "lumberjack": {
-    "title": "Lumber Jack",
+    "title": "Lumberjack",
     "description": "The lumberjack will help with your wood production.",
     "production": {
-      "wood": 1
+      "wood": 0.1
+    },
+    "upgrade": "This essentially gives Jack an additional worker. Don't worry about the worker's food or housing, in this kind of game you never have too...",
+    "baseCost": {
+      "wood": 250,
+      "stone": 100
+    }
+  },
+  "stonecutter": {
+    "title": "Stonecutter",
+    "description": "The lumberjack will help with your wood production.",
+    "production": {
+      "stone": 0.1
+    },
+    "upgrade": "This essentially gives Jack an additional worker. Don't worry about the worker's food or housing, in this kind of game you never have too...",
+    "baseCost": {
+      "wood": 250,
+      "stone": 100
     }
   }
 }

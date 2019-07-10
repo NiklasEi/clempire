@@ -41,6 +41,7 @@ class World {
         this.placeStones();
         this.placeTown(game);
         let context = this.canvas.getContext("2d")
+        context.filter = "brightness(1)"
         context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.toDraw.sort((a, b) => a.y + a.img.height - (b.y + b.img.height)).forEach(function (tree) {
           context.drawImage(tree.img, 0, 0, tree.img.width, tree.img.height, tree.x, tree.y, tree.img.width, tree.img.height)
@@ -102,6 +103,15 @@ class World {
         img: this.town.lumberjack
       });
     }
+    if (game.buildings.stonecutter > 0) {
+      game.buildingsData.stonecutter.x = this.center[0] + 100 / 1.4;
+      game.buildingsData.stonecutter.y = this.center[1] + 100 / 1.4;
+      this.toDraw.push({
+        x: game.buildingsData.stonecutter.x - this.town.tavern.width / 2,
+        y: game.buildingsData.stonecutter.y - this.town.tavern.height / 2,
+        img: this.town.stonecutter
+      });
+    }
   }
 
   async loadTrees() {
@@ -139,6 +149,12 @@ class World {
     loadingTown.push(this.loadImage(`assets/images/town/lumberjack.png`).then(response => {
       return {
         id: "lumberjack",
+        img: response
+      }
+    }))
+    loadingTown.push(this.loadImage(`assets/images/town/stonecutter.png`).then(response => {
+      return {
+        id: "stonecutter",
         img: response
       }
     }))

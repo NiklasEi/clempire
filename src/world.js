@@ -1,9 +1,10 @@
 import CookieUtility from "./cookies.js"
 
 class World {
-  constructor(canvas) {
+  constructor(canvas, game) {
     this.loading = [];
     this.canvas = canvas;
+    this.game = game;
     this.treesImgCount = 4;
     this.treesCount = 400;
     this.stonesImgCount = 11;
@@ -33,13 +34,13 @@ class World {
     });
   }
 
-  drawWorld(game) {
+  drawWorld() {
     return new Promise(function (resolve) {
       Promise.all(this.loading).then(function () {
         Math.seedrandom(this.worldSeed);
         this.placeTrees();
         this.placeStones();
-        this.placeTown(game);
+        this.placeTown(this.game);
         let context = this.canvas.getContext("2d")
         context.filter = "brightness(1)"
         context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -88,28 +89,16 @@ class World {
     }
   }
 
-  placeTown(game) {
-    this.toDraw.push({
-      x: this.center[0] - this.town.tavern.width / 2,
-      y: this.center[1] - this.town.tavern.height / 2 - 100,
-      img: this.town.tavern
-    });
-    if (game.buildings.lumberjack > 0) {
-      game.buildingsData.lumberjack.x = this.center[0] - 100 / 1.4;
-      game.buildingsData.lumberjack.y = this.center[1] + 100 / 1.4;
+  placeTown() {
+    let game = this.game;
+    for(let building in game.buildings) {
+      if(!game.buildings[building] && !game.buildingsData[building].default) continue;
+      game.buildingsData[building].x = this.center[0] + game.buildingsData[building].offsetX
+      game.buildingsData[building].y = this.center[1] + game.buildingsData[building].offsetY
       this.toDraw.push({
-        x: game.buildingsData.lumberjack.x - this.town.tavern.width / 2,
-        y: game.buildingsData.lumberjack.y - this.town.tavern.height / 2,
-        img: this.town.lumberjack
-      });
-    }
-    if (game.buildings.stonecutter > 0) {
-      game.buildingsData.stonecutter.x = this.center[0] + 130 / 1.4;
-      game.buildingsData.stonecutter.y = this.center[1] + 70 / 1.4;
-      this.toDraw.push({
-        x: game.buildingsData.stonecutter.x - this.town.tavern.width / 2,
-        y: game.buildingsData.stonecutter.y - this.town.tavern.height / 2,
-        img: this.town.stonecutter
+        x: game.buildingsData[building].x - this.town[building].width / 2,
+        y: game.buildingsData[building].y - this.town[building].height / 2,
+        img: this.town[building]
       });
     }
   }
@@ -140,24 +129,14 @@ class World {
 
   async loadTown() {
     let loadingTown = []
-    loadingTown.push(this.loadImage(`assets/images/town/tavern.png`).then(response => {
+    for(let building in this.game.buildingsData) {
+      loadingTown.push(this.loadImage(`${this.game.buildingsData[building].img}`).then(response => {
       return {
-        id: "tavern",
+        id: building,
         img: response
       }
     }))
-    loadingTown.push(this.loadImage(`assets/images/town/lumberjack.png`).then(response => {
-      return {
-        id: "lumberjack",
-        img: response
-      }
-    }))
-    loadingTown.push(this.loadImage(`assets/images/town/stonecutter.png`).then(response => {
-      return {
-        id: "stonecutter",
-        img: response
-      }
-    }))
+    }
     loadingTown = await Promise.all(loadingTown);
     this.town = {}
     for (let i = 0; i < loadingTown.length; i++) {

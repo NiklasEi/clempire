@@ -32,6 +32,7 @@ class Clempire {
 
   produce() {
     for (let building in this.buildingsData) {
+      if(this.buildingsData[building].production === undefined) continue;
       let produceCount = this.buildingsData[building].production.calc();
       let productionKey = this.buildingsData[building].production.key; // e.g. "wood"
       let img = this.session.game.resourcesData[productionKey].img;
@@ -106,7 +107,7 @@ class Clempire {
       this.buildingsData[building].id = building;
       let fromSave = CookieUtility.getCookie("buildings." + building)
       this.buildings[building] = (fromSave && fromSave > 0) ? parseInt(fromSave) : 0;
-      this.buildingsData[building].production = new Production(this, this.buildingsData[building]);
+      if(this.buildingsData[building].production)this.buildingsData[building].production = new Production(this, this.buildingsData[building]);
     }
   }
 

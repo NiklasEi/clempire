@@ -5,7 +5,7 @@
     "cursor": "assets/images/axe.png"
   },
   "stone": {
-    "img": "assets/images/stones.png",
+    "img": "assets/images/rock.png",
     "sound": "assets/sounds/pick-axe.ogg",
     "cursor": "assets/images/pick-axe.png"
   }

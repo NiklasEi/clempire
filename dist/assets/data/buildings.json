@@ -1,7 +1,16 @@
 {
+  "home": {
+    "title": "Home",
+    "description": "You live here. Looks cosy hmm?",
+    "img": "assets/images/town/home.png",
+    "default": true,
+    "offsetX": 0,
+    "offsetY": -100
+  },
   "lumberjack": {
     "title": "Lumberjack",
-    "description": "The lumberjack will help with your wood production.",
+    "description": "Jack relentlessly get's wood for you.",
+    "img": "assets/images/town/lumberjack.png",
     "production": {
       "wood": 0.1
     },
@@ -9,18 +18,23 @@
     "baseCost": {
       "wood": 250,
       "stone": 100
-    }
+    },
+    "offsetX": -70,
+    "offsetY": 70
   },
   "stonecutter": {
     "title": "Stonecutter",
-    "description": "The lumberjack will help with your wood production.",
+    "description": "Fred works here and produces stone for you.",
+    "img": "assets/images/town/home.png",
     "production": {
       "stone": 0.1
     },
-    "upgrade": "This essentially gives Jack an additional worker. Don't worry about the worker's food or housing, in this kind of game you never have too...",
+    "upgrade": "Fred doesn't like coworkes. Instead you can have him grow more arms ;)",
     "baseCost": {
       "wood": 250,
       "stone": 100
-    }
+    },
+    "offsetX": 70,
+    "offsetY": 70
   }
 }

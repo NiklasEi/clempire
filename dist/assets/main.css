@@ -123,14 +123,6 @@ main {
   border: blue solid 2px;
 }
 
-#anchors div.resource-field-anchor[data-source-field="1"] .resource-image-field {
-  background-image: url(images/Tree.png);
-}
-
-#anchors div.resource-field-anchor[data-source-field="2"] .resource-image-field {
-  background-image: url(images/rock.png);
-}
-
 #resources {
   display: inline;
   list-style: none;

@@ -57,8 +57,8 @@ class Session {
     particlesCanvas.width = leftSide.offsetWidth;
     particlesCanvas.height = leftSide.offsetHeight;
 
-    this.world = new World(this.canvas);
-    this.world.drawWorld(this.game).then(function () {
+    this.world = new World(this.canvas, this.game);
+    this.world.drawWorld().then(function () {
       this.displaySources();
       this.displayUpgrades();
       this.displayResources();
@@ -100,18 +100,18 @@ class Session {
   placeResourceAnchors() {
     let count = 0;
     let length = Object.keys(this.game.sourcesData).length;
-    let anchors = document.getElementById("anchors");
+    let anchors = document.getElementById("resource-anchors");
     while (anchors.firstChild) {
       anchors.removeChild(anchors.firstChild);
     }
     for (let source in this.game.sourcesData) {
       let anchor = document.createElement("div");
       anchor.classList.add("resource-field-anchor");
-      anchor.setAttribute("data-source-field", `${count + 1}`);
       anchor.style.left = `${15 + (70 / (length - 1)) * count}%`;
       anchor.style.top = this.canvas.width > 1000 ? (this.canvas.height * 0.45) + "px" : "170px";
       let imgField = document.createElement("div");
       imgField.classList.add("resource-image-field");
+      imgField.style.backgroundImage = `url(${this.game.sourcesData[source].img})`
       anchor.appendChild(imgField);
       let field = document.createElement("div");
       field.classList.add("resource-field");

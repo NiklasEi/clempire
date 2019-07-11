@@ -67,10 +67,7 @@ class Clempire {
         CookieUtility.saveCookie("resources." + type + "." + resource, this.resources[type][resource])
       }
     }
-    for (let building in this.buildings) {
-      CookieUtility.saveCookie("buildings." + building, this.buildings[building])
-    }
-    CookieUtility.saveCookie("upgrades", this.activeUpgrades.join(","))
+    // upgrades and buildings are saved directly
     Alert.autoSave();
   }
 
@@ -221,6 +218,7 @@ class Clempire {
       document.querySelector(".tooltip").remove() // remove open tooltips
       // flag loaded=false in order to also gain buildings from upgrades and other stuff that is additionally saved/loaded
       this.activateUpgrade(upgrade, false);
+      CookieUtility.saveCookie("upgrades", this.activeUpgrades.join(","))
     } else {
       this.audio.playSound("no");
     }
@@ -231,6 +229,7 @@ class Clempire {
       this.audio.playSound("yes");
       this.pay(building.cost);
       this.buildings[building.id] ++;
+      CookieUtility.saveCookie("buildings." + building.id, this.buildings[building.id])
       building.production.updateNextCost();
     } else {
       this.audio.playSound("no");

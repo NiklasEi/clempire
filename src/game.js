@@ -252,7 +252,7 @@ class Clempire {
     for (let effect in upgrade.effect) {
       switch (effect.toLowerCase()) {
         case "build":
-          if (loaded) break;
+          if (loaded) break; // the additional buildings are saved seperately below
           for (let build in upgrade.effect.build) {
             if (this.buildings[build] === undefined) {
               throw new Error("Unknown building '" + build + "' in effect of upgrade nr " + upgrade.id)
@@ -263,6 +263,7 @@ class Clempire {
             } else {
               this.buildings[build] += upgrade.effect.build[build];
             }
+            CookieUtility.saveCookie("buildings." + build, this.buildings[build])
           }
           break;
 
@@ -356,7 +357,7 @@ class Production {
   updateNextCost() {
     let cost = {};
     for(let resource in this.building.baseCost) {
-      cost[resource] = Math.floor(Math.pow(1.15, this.game.buildings[this.id]) * this.building.baseCost[resource]);
+      cost[resource] = Math.floor(Math.pow(1.1, this.game.buildings[this.id]) * this.building.baseCost[resource]);
     }
     this.building.cost = cost;
   }

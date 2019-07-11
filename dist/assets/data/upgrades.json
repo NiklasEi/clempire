@@ -11,7 +11,7 @@
       }
     },
     "cost": {
-      "wood": 250
+      "wood": 100
     },
     "effect": {
       "multiplier": {
@@ -21,7 +21,7 @@
   },
   "101": {
     "title": "Axe lessons",
-    "description": "You asked Jack for some advice with your axe handling.\nHe simply told you to not use the blund side, but the sharp one. You dummy...\n\nThis doubles your wood production!",
+    "description": "You asked Jack for some advice with your axe handling. He simply told you to not use the blund side, but the sharp one. You dummy...",
     "icon": "assets/images/upgrades/wood/iron-axe.png",
     "requirement": {
       "updates": [200],
@@ -32,8 +32,8 @@
       }
     },
     "cost": {
-      "wood": 5000,
-      "stone": 3000
+      "wood": 500,
+      "stone": 250
     },
     "effect": {
       "multiplier": {
@@ -69,21 +69,19 @@
   },
   "201": {
     "title": "Actual axe",
-    "description": "Now your lumberjack doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack\n\nThis doubles the lumberjack's production!",
+    "description": "Now your lumberjacks don't need to cut down trees with their hands anymore...",
+    "quote": {
+      "text": "Finally... thanks man",
+      "originator": "Jack the Lumber Jack"
+    },
     "icon": "assets/images/upgrades/lumberjack/bronze-lumberjack.png",
     "requirement": {
-      "updates": [200],
-      "resources": {
-        "gathered": {
-          "wood": 100
-        },
-        "produced": {
-          "wood": 100
-        }
+      "buildings": {
+        "lumberjack": 5
       }
     },
     "cost": {
-      "wood": 500
+      "wood": 250
     },
     "effect": {
       "multiplier": {
@@ -93,7 +91,7 @@
   },
   "300": {
     "title": "Get better at stone cutting...",
-    "description": "If you hit harder more stones break of! Who would have thought?\n\nThis doubles your stone production!",
+    "description": "If you hit harder more stones break of! Who would have thought?",
     "icon": "assets/images/upgrades/stone/bronze-pick.png",
     "requirement": {
       "resources": {
@@ -104,7 +102,7 @@
     },
     "cost": {
       "wood": 100,
-      "stone": 250
+      "stone": 150
     },
     "effect": {
       "multiplier": {
@@ -114,16 +112,17 @@
   },
   "400": {
     "title": "Fred the stonecutter",
-    "description": "One of Jack's helpers, Fred, seems to be more into rocks than trees. After Jack caught him hugging a large stone, he got fired... Couldn't you use a stonecutter?\n\nBuild a house for Fred and he'll produce stone for you.",
+    "description": "One of Jack's helpers, Fred, seems to be more into rocks than trees. After Jack caught him hugging a large stone, he got fired... Couldn't you use a stonecutter?",
     "icon": "assets/images/upgrades/stonecutter/stonecutter.png",
+    "effectDescription": "Build a house for Fred and he'll produce stone for you.",
     "requirement": {
       "buildings": {
         "lumberjack": 5
       }
     },
     "cost": {
-      "stone": 250,
-      "wood": 1500
+      "stone": 150,
+      "wood": 150
     },
     "effect": {
       "build": {
@@ -133,19 +132,16 @@
   },
   "401": {
     "title": "The high note",
-    "description": "Fred loves to sing while cutting stone. He just perfected the high notes. They make the rocks crack!\n\nThis doubles the stonecutter's production!",
+    "description": "Fred loves to sing while cutting stone. He just perfected the high notes. They make the rocks crack!",
     "icon": "assets/images/upgrades/stonecutter/bronze-stonecutter.png",
     "requirement": {
-      "updates": [400],
-      "resources": {
-        "produced": {
-          "stone": 500
-        }
+      "buildings": {
+        "stonecutter": 5
       }
     },
     "cost": {
-      "stone": 2500,
-      "wood": 4000
+      "stone": 400,
+      "wood": 250
     },
     "effect": {
       "multiplier": {
@@ -160,22 +156,23 @@
       "text": "I'm strong to the finich, 'cause I eats me Spinach, I'm Popeye the sailor man! (toot, toot)",
       "originator": "Popeye"
     },
-    "effectDescription" : "A steady supply of spinach for your town doubles all production and clicking!",
+    "effectDescription" : "A steady supply of spinach for your town doubles all production and clicking!\nIn case you are wondering... all the stone is needed to pave the road from the spinach fields to your town.",
     "icon": "assets/images/upgrades/spinach.png",
     "requirement": {
       "resources": {
         "produced": {
-          "stone": 1000,
-          "wood": 1000
+          "stone": 100,
+          "wood": 100
         },
         "gathered": {
-          "stone": 1000,
-          "wood": 1000
+          "stone": 2000,
+          "wood": 2000
         }
       }
     },
     "cost": {
-      "coins": 50
+      "coins": 100,
+      "stone": 500
     },
     "weight": 10000,
     "effect": {

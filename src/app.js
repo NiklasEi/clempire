@@ -231,7 +231,7 @@ class Session {
     let currentCount = Math.floor(this.game.resources.current[resource]).toString();
     let resourceData = this.game.resourcesData[resource]
     tooltipWrap.innerHTML = `
-    <lable>${resourceData.lable}: </lable><span data-resource="${resource}">${currentCount}</span>`
+    <lable>${resourceData.lable}: </lable><span data-resource="${resource}" no-beautify>${currentCount}</span>`
   }
 
   displayUpgrades() {
@@ -265,13 +265,28 @@ class Session {
     tooltipWrap.innerHTML = `<h1>${upgrade.title}</h1>
     ${upgrade.description.split("\n").map(line => `<p>${line}</p>`).join("")}
     ${upgrade.quote ? `<div class="quote"><p class='text'>“${upgrade.quote.text}”</p><p class='originator'>- ${upgrade.quote.originator}</p></div>` : ""}
-    ${upgrade.effectDescription ? `<p class='effectDescription'>${upgrade.effectDescription}</p>` : JSON.stringify(upgrade.effect)}
+    <hr>
+    ${upgrade.effectDescription ? upgrade.effectDescription.replace("doubles", "<strong>doubles</strong>").split("\n").map(line => `<p class='effectDescription'>${line}</p>`).join("") : this.getEffectDescription(upgrade.effect)}
     <div class='cost'>
       <p>Cost:</p>
       <ul>
         ${Object.keys(upgrade.cost).map(resource => `<li>${resource}: ${upgrade.cost[resource]}</li>`).join("")}
       </ul>
     </div>`
+  }
+
+  getEffectDescription(effect) {
+    if (!effect.multiplier) throw new Error("Tell Niklas to implement automatic effect descriptions for " + JSON.stringify(effect))
+    let keys = Object.keys(effect.multiplier);
+    if (keys.length > 1) throw new Error("Tell Niklas to implement better automatic effect descriptions :P")
+    // only works for one multipier atm...
+    if(Object.prototype.hasOwnProperty.call(this.game.buildings, keys[0])) {
+      // it's a building
+      return `This ${keys.map(key => effect.multiplier[key] === 2 ? `<strong>doubles</strong> your ${key}'s production` : "Error :P")[0]}`
+    } else {
+      // by clicking
+      return `This ${keys.map(key => effect.multiplier[key] === 2 ? `<strong>doubles</strong> your ${key} production by clicking` : "Error :P")[0]}`
+    }
   }
 
   createTooltipWrap(anchor) {
@@ -295,8 +310,10 @@ class Session {
       let tooltip = document.querySelector(".tooltip");
       if (tooltip) {
         let resourceCount = tooltip.querySelector(`[data-resource="${resource}"]`);
-        if (resourceCount) {
-          resourceCount.innerText = currentCount.toString();
+        if (resourceCount && resourceCount.hasAttribute("no-beautify")) {
+          resourceCount.innerText = Math.floor(this.game.resources.current[resource]);
+        } else if (resourceCount) {
+          resourceCount.innerText = currentCount;
         }
       }
       resourceDisplay.getElementsByTagName("span")[0].innerText = currentCount;

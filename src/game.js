@@ -219,6 +219,9 @@ class Clempire {
       // flag loaded=false in order to also gain buildings from upgrades and other stuff that is additionally saved/loaded
       this.activateUpgrade(upgrade, false);
       CookieUtility.saveCookie("upgrades", this.activeUpgrades.join(","))
+      for (let resource in this.resources.current) {
+        CookieUtility.saveCookie("resources.current." + resource, this.resources.current[resource])
+      }
     } else {
       this.audio.playSound("no");
     }
@@ -230,6 +233,9 @@ class Clempire {
       this.pay(building.cost);
       this.buildings[building.id] ++;
       CookieUtility.saveCookie("buildings." + building.id, this.buildings[building.id])
+      for (let resource in this.resources.current) {
+        CookieUtility.saveCookie("resources.current." + resource, this.resources.current[resource])
+      }
       building.production.updateNextCost();
     } else {
       this.audio.playSound("no");

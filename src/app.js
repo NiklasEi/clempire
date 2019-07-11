@@ -128,8 +128,8 @@ class Session {
     ${building.description.split("\n").map(line => `<p>${line}</p>`).join("")}
     ${building.production ? `<br>
     <div class='production-description'>
-      <p>You own <strong>${this.game.buildings[building.id]}</strong> ${building.title.toLowerCase()}(s) with a total production of <strong>${NumbersUtility.beautify(building.production.calc())}</strong> ${building.production.key} per second.</p>
       <p>Each ${building.title.toLowerCase()} currently produces <strong>${NumbersUtility.beautify(building.production.calcSingle())}</strong> ${building.production.key} per second.</p>
+      <p>You have <strong>${this.game.buildings[building.id]}</strong> ${building.title.toLowerCase()}(s) with a total production of <strong>${NumbersUtility.beautify(building.production.calc())}</strong> ${building.production.key} per second.</p>
       <hr>
       <p>${building.upgrade}</p>
       <div class='cost'>

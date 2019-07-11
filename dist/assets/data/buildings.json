@@ -14,12 +14,12 @@
   },
   "lumberjack": {
     "title": "Lumberjack",
-    "description": "Jack the lumberjack and his helpers relentlessly get wood for you.",
+    "description": "Jack the lumberjack and his helpers constantly get wood for you.",
     "img": "assets/images/town/lumberjack.png",
     "production": {
       "wood": 0.1
     },
-    "upgrade": "Click to pay Jack for an additional worker. Don't worry about the worker's food or housing, in this kind of game you never have too...",
+    "upgrade": "Click to pay Jack for an additional worker. Don't worry about the worker's food or housing, in this kind of game you never have to...",
     "baseCost": {
       "wood": 250,
       "stone": 100

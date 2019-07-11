@@ -2,6 +2,7 @@ import CookieUtility from "./cookies.js"
 import Alert from "./alert.js"
 import Particles from "./particles.js"
 import AudioPlayer from "./audio.js"
+import NumbersUtility from "./numbers.js"
 
 class Clempire {
   constructor(session) {
@@ -39,7 +40,7 @@ class Clempire {
       let productionKey = this.buildingsData[building].production.key; // e.g. "wood"
       let img = this.session.game.resourcesData[productionKey].img;
       if (!isNaN(produceCount) && produceCount > 0) {
-        this.particles.spawn(img, this.buildingsData[building].x, this.buildingsData[building].y, "+ " + produceCount, 4000);
+        this.particles.spawn(img, this.buildingsData[building].x, this.buildingsData[building].y, "+ " + NumbersUtility.beautify(produceCount), 4000);
         this.session.game.resources.current[productionKey] += produceCount;
         this.session.game.resources.produced[productionKey] += produceCount;
       }
@@ -113,7 +114,10 @@ class Clempire {
       this.buildingsData[building].id = building;
       let fromSave = CookieUtility.getCookie("buildings." + building)
       this.buildings[building] = (fromSave && fromSave > 0) ? parseInt(fromSave) : 0;
-      if (this.buildingsData[building].production) this.buildingsData[building].production = new Production(this, this.buildingsData[building]);
+      if (this.buildingsData[building].production) {
+        this.buildingsData[building].production = new Production(this, this.buildingsData[building]);
+        this.buildingsData[building].production.updateNextCost();
+      }
     }
   }
 
@@ -152,6 +156,12 @@ class Clempire {
       this.resourcesData[resource].img = this.loadImage(this.resourcesData[resource].icon).then(response => response)
       loadingIcons.push(this.resourcesData[resource].img);
     }
+    /* // The inteface icons will be set in style as div background...
+    for (let building in this.buildingsData) {
+      if(!this.buildingsData[building].interface) continue;
+      this.buildingsData[building].interface.img = this.loadImage(this.buildingsData[building].interface.icon).then(response => response)
+      loadingIcons.push(this.buildingsData[building].interface.img);
+    }*/
     loadingIcons = await Promise.all(loadingIcons);
     let i = 0;
     for (let resource in this.resourcesData) {
@@ -202,6 +212,15 @@ class Clempire {
       document.querySelector(".tooltip").remove() // remove open tooltips
       // flag loaded=false in order to also gain buildings from upgrades and other stuff that is additionally saved/loaded
       this.activateUpgrade(upgrade, false);
+    }
+  }
+
+  buildingClick(building) {
+    console.log(building.cost)
+    if (this.canPay(building.cost)) {
+      this.pay(building.cost);
+      this.buildings[building.id] ++;
+      building.production.updateNextCost();
     }
   }
 
@@ -305,11 +324,20 @@ class Clempire {
 
 class Production {
   constructor(game, building) {
+    this.game = game;
+    this.building = building;
     this.key = Object.keys(building.production)[0];
     this.baseProduction = building.production[this.key];
     this.id = building.id;
     this.multiplier = 1;
-    this.game = game;
+  }
+
+  updateNextCost() {
+    let cost = {};
+    for(let resource in this.building.baseCost) {
+      cost[resource] = Math.floor(Math.pow(1.15, this.game.buildings[this.id]) * this.building.baseCost[resource]);
+    }
+    this.building.cost = cost;
   }
 
   multiply(multiplier) {

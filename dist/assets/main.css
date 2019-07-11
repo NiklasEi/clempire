@@ -127,7 +127,12 @@ main {
   z-index: 2;
 }
 
-#left-side .resource-field-anchor {
+#left-side .resource-field-anchor,
+#left-side .interface-anchor,
+#left-side .resource-image-field,
+#left-side .resource-field,
+#left-side .interface-image-field,
+#left-side .interface-field {
   position: absolute;
 }
 
@@ -136,24 +141,39 @@ main {
 #left-side .resource-field {
   width: 10vw;
   height: 10vw;
-  position: absolute;
   left: -5vw;
   top: -5vw;
   border-radius: 5vw;
 }
 
-#left-side .resource-field {
+#left-side .interface-image-field,
+#left-side .interface-field {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+}
+
+#left-side .resource-field,
+#left-side .interface-field {
   z-index: 3;
   background-image: url(images/empty.png);
 }
 
-#left-side .resource-image-field {
+#left-side .resource-image-field,
+#left-side .interface-image-field {
   z-index: 1;
-  background-color: lightgrey;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+}
+
+#left-side .resource-image-field {
+  background-color: lightgrey;
   border: blue solid 2px;
+}
+
+#left-side .interface-image-field {
+  border: blue dashed 1px;
 }
 
 #resources {

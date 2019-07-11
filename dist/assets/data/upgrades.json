@@ -31,7 +31,7 @@
     "requirement": {
       "resources": {
         "gathered": {
-          "wood": 50
+          "wood": 15
         }
       }
     },
@@ -111,6 +111,7 @@
     "description": "Fred loves to sing while cutting stone. He just perfected the high notes. They make the rocks crack!\n\nThis doubles the stonecutter's production!",
     "icon": "assets/images/upgrades/stonecutter/bronze-stonecutter.png",
     "requirement": {
+      "updates": [400],
       "resources": {
         "produced": {
           "stone": 50
@@ -163,7 +164,7 @@
   },
   "1100": {
     "title": "Lucky bastard",
-    "description": "You found gold while mining stone! That that you know what to look for, you should spot it more easily.",
+    "description": "You found gold while mining stone! Now that you know what to look for, you should spot it more easily.",
     "quote": {
       "text": "Gold makes the ugly beautiful.",
       "originator": "Molière"

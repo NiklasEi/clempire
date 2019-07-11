@@ -18,7 +18,7 @@ class Session {
 
   initialize() {
     // if this is the first time the player is playing, open the info
-    if(!CookieUtility.hasCookie("playedbefore")) {
+    if (!CookieUtility.hasCookie("playedbefore")) {
       showOverlay();
       let overlay = document.querySelector(".overlay-content");
       let firstChild = overlay.firstChild;
@@ -68,13 +68,45 @@ class Session {
     particlesCanvas.width = leftSide.offsetWidth;
     particlesCanvas.height = leftSide.offsetHeight;
 
-    this.world = new World(this.canvas, this.game);
+    this.world = new World(this);
     this.world.drawWorld().then(function () {
       this.displaySources();
       this.displayUpgrades();
       this.displayResources();
       this.startGame();
     }.bind(this));
+  }
+
+  createBuildingInterfaces() {
+    let parentAnchor = document.getElementById("interface-anchors");
+    // clear anchors
+    while (parentAnchor.firstChild) {
+      parentAnchor.removeChild(parentAnchor.firstChild);
+    }
+    for (let building in this.game.buildingsData) {
+      if (!this.game.buildingsData[building].interface) continue;
+      if (this.game.buildings[building] === 0 && this.game.buildingsData[building].production) continue;
+      let anchor = document.createElement("div");
+      anchor.classList.add("interface-anchor");
+      anchor.style.left = `${this.game.buildingsData[building].x + this.game.buildingsData[building].interface.offsetX}px`
+      anchor.style.top = `${this.game.buildingsData[building].y + this.game.buildingsData[building].interface.offsetY}px`
+      let imgField = document.createElement("div");
+      imgField.classList.add("interface-image-field");
+      imgField.style.backgroundImage = `url(${this.game.buildingsData[building].interface.img})`
+      anchor.appendChild(imgField);
+      let field = document.createElement("div");
+      field.classList.add("interface-field");
+      field.setAttribute("draggable", false);
+      field.setAttribute("oncontextmenu", "return false;");
+      if (this.game.buildingsData[building].production) {
+        field.onclick = function (building) {
+          this.game.buildingClick.apply(this.game, [building]);
+        }.bind(this, this.game.buildingsData[building]);
+        field.style.cursor = `pointer`
+      }
+      anchor.appendChild(field);
+      parentAnchor.appendChild(anchor);
+    }
   }
 
   startGame() {
@@ -93,7 +125,7 @@ class Session {
     let counter = 0;
 
     for (let source in this.game.sourcesData) {
-      if(!this.game.sourcesData[source].img) continue;
+      if (!this.game.sourcesData[source].img) continue;
       if (counter === resourceFields.length) {
         throw new Error("Not enogh resource fields!")
       }
@@ -117,7 +149,7 @@ class Session {
       anchors.removeChild(anchors.firstChild);
     }
     for (let source in this.game.sourcesData) {
-      if(!this.game.sourcesData[source].img) continue;
+      if (!this.game.sourcesData[source].img) continue;
       let anchor = document.createElement("div");
       anchor.classList.add("resource-field-anchor");
       anchor.style.left = `${15 + (70 / (length - 1)) * count}%`;
@@ -176,8 +208,8 @@ class Session {
       this.ugradeDisplay.removeChild(this.ugradeDisplay.firstChild);
     }
     // remove possibly open tooltip
-    let openToolTip = document.querySelector(".tooltip"); 
-    if(openToolTip) openToolTip.remove();
+    let openToolTip = document.querySelector(".tooltip");
+    if (openToolTip) openToolTip.remove();
     for (let upgradeIndex in this.game.shownUpgrades) {
       let display = document.createElement("div");
       let upgrade = this.game.upgradeData[this.game.shownUpgrades[upgradeIndex]];
@@ -187,7 +219,9 @@ class Session {
       display.addEventListener("mouseover", function (display, upgrade) {
         this.displayUpgradeTooltip(display, upgrade)
       }.bind(this, display, upgrade))
-      display.addEventListener("mouseout", () => document.querySelector(".tooltip").remove());
+      display.addEventListener("mouseout", () => {
+        if (document.querySelector(".tooltip")) document.querySelector(".tooltip").remove()
+      });
       this.ugradeDisplay.appendChild(display);
     }
   }
@@ -227,7 +261,7 @@ class Session {
       let tooltip = document.querySelector(".tooltip");
       if (tooltip) {
         let resourceCount = tooltip.querySelector(`[data-resource="${resource}"]`);
-        if(resourceCount) {
+        if (resourceCount) {
           resourceCount.innerText = currentCount.toString();
         }
       }

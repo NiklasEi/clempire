@@ -5,7 +5,12 @@
     "img": "assets/images/town/home.png",
     "default": true,
     "offsetX": 0,
-    "offsetY": -100
+    "offsetY": -100,
+    "interface": {
+      "offsetX": 50,
+      "offsetY": -50,
+      "img": "assets/images/town/icons/sleeping.png"
+    }
   },
   "lumberjack": {
     "title": "Lumberjack",
@@ -20,7 +25,12 @@
       "stone": 100
     },
     "offsetX": -70,
-    "offsetY": 70
+    "offsetY": 70,
+    "interface": {
+      "offsetX": 50,
+      "offsetY": -50,
+      "img": "assets/images/town/icons/upgrade.png"
+    }
   },
   "stonecutter": {
     "title": "Stonecutter",
@@ -35,6 +45,11 @@
       "stone": 100
     },
     "offsetX": 100,
-    "offsetY": 0
+    "offsetY": 0,
+    "interface": {
+      "offsetX": 50,
+      "offsetY": -50,
+      "img": "assets/images/town/icons/upgrade.png"
+    }
   }
 }

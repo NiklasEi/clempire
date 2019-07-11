@@ -1,10 +1,11 @@
 import CookieUtility from "./cookies.js"
 
 class World {
-  constructor(canvas, game) {
+  constructor(session) {
     this.loading = [];
-    this.canvas = canvas;
-    this.game = game;
+    this.canvas = session.canvas;
+    this.session = session;
+    this.game = session.game;
     this.treesImgCount = 4;
     this.treesCount = 400;
     this.stonesImgCount = 11;
@@ -15,7 +16,7 @@ class World {
       CookieUtility.saveCookie("world.seed", this.worldSeed);
     }
     console.log("Current world seed: " + this.worldSeed);
-    this.center = [Math.floor(canvas.width / 2), Math.floor(canvas.height / 2)];
+    this.center = [Math.floor(this.canvas.width / 2), Math.floor(this.canvas.height / 2)];
     this.townRadius = 200;
     this.loading.push(this.loadTrees());
     this.loading.push(this.loadStones());
@@ -48,6 +49,7 @@ class World {
           context.drawImage(tree.img, 0, 0, tree.img.width, tree.img.height, tree.x, tree.y, tree.img.width, tree.img.height)
         })
         this.toDraw = [];
+        this.session.createBuildingInterfaces();
         resolve();
       }.bind(this))
     }.bind(this))

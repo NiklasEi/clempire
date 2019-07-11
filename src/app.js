@@ -113,7 +113,9 @@ class Session {
       field.addEventListener("mouseover", function (field, building) {
         this.displayBuildingToolTip(field, building)
       }.bind(this, field, building))
-      field.addEventListener("mouseout", () => document.querySelector(".tooltip").remove());
+      field.addEventListener("mouseout", () => {
+        if (document.querySelector(".tooltip")) document.querySelector(".tooltip").remove()
+      });
       anchor.appendChild(field);
       parentAnchor.appendChild(anchor);
     }
@@ -217,7 +219,9 @@ class Session {
       display.addEventListener("mouseover", function (display, resource) {
         this.displayResourceToolTip(display, resource)
       }.bind(this, display, resource))
-      display.addEventListener("mouseout", () => document.querySelector(".tooltip").remove());
+      display.addEventListener("mouseout", () => {
+        if (document.querySelector(".tooltip")) document.querySelector(".tooltip").remove()
+      });
       this.resourcesDisplay.appendChild(display);
     }
   }

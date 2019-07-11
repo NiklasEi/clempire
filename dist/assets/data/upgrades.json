@@ -1,7 +1,7 @@
 {
   "100": {
-    "title": "Axe lessons",
-    "description": "You asked Jack for some advice with your axe handling.\nHe simply told you to not use the blund side, but the sharp one. You dummy...\n\nThis doubles your wood production!",
+    "title": "Getting ripped",
+    "description": "If you make enough lumber your arms will look like logs, too.",
     "icon": "assets/images/upgrades/wood/bronze-axe.png",
     "requirement": {
       "resources": {
@@ -12,6 +12,28 @@
     },
     "cost": {
       "wood": 250
+    },
+    "effect": {
+      "multiplier": {
+        "wood": 2
+      }
+    }
+  },
+  "101": {
+    "title": "Axe lessons",
+    "description": "You asked Jack for some advice with your axe handling.\nHe simply told you to not use the blund side, but the sharp one. You dummy...\n\nThis doubles your wood production!",
+    "icon": "assets/images/upgrades/wood/iron-axe.png",
+    "requirement": {
+      "updates": [200],
+      "resources": {
+        "gathered": {
+          "wood": 500
+        }
+      }
+    },
+    "cost": {
+      "wood": 5000,
+      "stone": 3000
     },
     "effect": {
       "multiplier": {
@@ -36,8 +58,8 @@
       }
     },
     "cost": {
-      "wood": 250,
-      "stone": 100
+      "wood": 100,
+      "stone": 50
     },
     "effect": {
       "build": {
@@ -50,6 +72,7 @@
     "description": "Now your lumberjack doesn't need to cut down trees with his hands anymore...\n\"Finally... thanks man\"\n- Jack the Lumber Jack\n\nThis doubles the lumberjack's production!",
     "icon": "assets/images/upgrades/lumberjack/bronze-lumberjack.png",
     "requirement": {
+      "updates": [200],
       "resources": {
         "gathered": {
           "wood": 100
@@ -70,7 +93,7 @@
   },
   "300": {
     "title": "Get better at stone cutting...",
-    "description": "If you hit the cracks more stone breaks of! Who would have thought?\n\nThis doubles your stone production!",
+    "description": "If you hit harder more stones break of! Who would have thought?\n\nThis doubles your stone production!",
     "icon": "assets/images/upgrades/stone/bronze-pick.png",
     "requirement": {
       "resources": {
@@ -94,11 +117,13 @@
     "description": "One of Jack's helpers, Fred, seems to be more into rocks than trees. After Jack caught him hugging a large stone, he got fired... Couldn't you use a stonecutter?\n\nBuild a house for Fred and he'll produce stone for you.",
     "icon": "assets/images/upgrades/stonecutter/stonecutter.png",
     "requirement": {
-      "updates": [200]
+      "buildings": {
+        "lumberjack": 5
+      }
     },
     "cost": {
       "stone": 250,
-      "wood": 500
+      "wood": 1500
     },
     "effect": {
       "build": {
@@ -114,13 +139,13 @@
       "updates": [400],
       "resources": {
         "produced": {
-          "stone": 50
+          "stone": 500
         }
       }
     },
     "cost": {
-      "stone": 500,
-      "wood": 500
+      "stone": 2500,
+      "wood": 4000
     },
     "effect": {
       "multiplier": {
@@ -140,12 +165,12 @@
     "requirement": {
       "resources": {
         "produced": {
-          "stone": 200,
-          "wood": 300
+          "stone": 1000,
+          "wood": 1000
         },
         "gathered": {
-          "stone": 500,
-          "wood": 500
+          "stone": 1000,
+          "wood": 1000
         }
       }
     },

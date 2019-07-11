@@ -134,17 +134,25 @@ class Clempire {
     let loadingUpgrades = fetch("assets/data/upgrades.json")
       .catch(e => console.log(e))
       .then(response => response.json());
+    let loadingAudio = fetch("assets/data/audio.json")
+      .catch(e => console.log(e))
+      .then(response => response.json());
     [
       this.resourcesData,
       this.buildingsData,
       this.sourcesData,
-      this.upgradeData
+      this.upgradeData,
+      loadingAudio
     ] = await Promise.all([
       loadingResources,
       loadingBuildings,
       loadingSources,
-      loadingUpgrades
+      loadingUpgrades,
+      loadingAudio
     ]);
+    for (let audioId in loadingAudio) {
+      this.audio.addSound(audioId, loadingAudio[audioId]);
+    }
     for (let source in this.sourcesData) {
       this.sourcesData[source].id = source;
       this.sourcesData[source].multiplier = 1;
@@ -208,19 +216,24 @@ class Clempire {
 
   upgradeClick(upgrade) {
     if (this.canPay(upgrade.cost)) {
+      this.audio.playSound("yes");
       this.pay(upgrade.cost);
       document.querySelector(".tooltip").remove() // remove open tooltips
       // flag loaded=false in order to also gain buildings from upgrades and other stuff that is additionally saved/loaded
       this.activateUpgrade(upgrade, false);
+    } else {
+      this.audio.playSound("no");
     }
   }
 
   buildingClick(building) {
-    console.log(building.cost)
     if (this.canPay(building.cost)) {
+      this.audio.playSound("yes");
       this.pay(building.cost);
       this.buildings[building.id] ++;
       building.production.updateNextCost();
+    } else {
+      this.audio.playSound("no");
     }
   }
 
@@ -295,6 +308,9 @@ class Clempire {
     }
     for (let update in req.updates) {
       if (!this.activeUpgrades.includes(req.updates[update])) return false;
+    }
+    for (let building in req.buildings) {
+      if(this.buildings[building] < req.buildings[building]) return false;
     }
     return true;
   }

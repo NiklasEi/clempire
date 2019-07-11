@@ -83,30 +83,60 @@ class Session {
     while (parentAnchor.firstChild) {
       parentAnchor.removeChild(parentAnchor.firstChild);
     }
-    for (let building in this.game.buildingsData) {
-      if (!this.game.buildingsData[building].interface) continue;
-      if (this.game.buildings[building] === 0 && this.game.buildingsData[building].production) continue;
+    for (let buildingId in this.game.buildingsData) {
+      if (!this.game.buildingsData[buildingId].interface) continue;
+      if (this.game.buildings[buildingId] === 0 && this.game.buildingsData[buildingId].production) continue;
       let anchor = document.createElement("div");
+      let building = this.game.buildingsData[buildingId];
       anchor.classList.add("interface-anchor");
-      anchor.style.left = `${this.game.buildingsData[building].x + this.game.buildingsData[building].interface.offsetX}px`
-      anchor.style.top = `${this.game.buildingsData[building].y + this.game.buildingsData[building].interface.offsetY}px`
+      anchor.style.left = `${building.x + building.interface.offsetX}px`
+      anchor.style.top = `${building.y + building.interface.offsetY}px`
       let imgField = document.createElement("div");
       imgField.classList.add("interface-image-field");
-      imgField.style.backgroundImage = `url(${this.game.buildingsData[building].interface.img})`
+      imgField.style.backgroundImage = `url(${building.interface.img})`
       anchor.appendChild(imgField);
       let field = document.createElement("div");
       field.classList.add("interface-field");
       field.setAttribute("draggable", false);
       field.setAttribute("oncontextmenu", "return false;");
-      if (this.game.buildingsData[building].production) {
-        field.onclick = function (building) {
+      if (building.production) {
+        field.onclick = function (building, field) {
           this.game.buildingClick.apply(this.game, [building]);
-        }.bind(this, this.game.buildingsData[building]);
+          let current = document.querySelector(".tooltip");
+          if(current) {
+            current.remove();
+            this.displayBuildingToolTip(field, building)
+          }
+        }.bind(this, building, field);
         field.style.cursor = `pointer`
       }
+      field.addEventListener("mouseover", function (field, building) {
+        this.displayBuildingToolTip(field, building)
+      }.bind(this, field, building))
+      field.addEventListener("mouseout", () => document.querySelector(".tooltip").remove());
       anchor.appendChild(field);
       parentAnchor.appendChild(anchor);
     }
+  }
+
+  displayBuildingToolTip(field, building) {
+    let tooltipWrap = this.createTooltipWrap(field);
+    tooltipWrap.innerHTML = `
+    <h1>${building.title}</h1>
+    ${building.description.split("\n").map(line => `<p>${line}</p>`).join("")}
+    ${building.production ? `<br>
+    <div class='production-description'>
+      <p>You own <strong>${this.game.buildings[building.id]}</strong> ${building.title.toLowerCase()}(s) with a total production of <strong>${NumbersUtility.beautify(building.production.calc())}</strong> ${building.production.key} per second.</p>
+      <p>Each ${building.title.toLowerCase()} currently produces <strong>${NumbersUtility.beautify(building.production.calcSingle())}</strong> ${building.production.key} per second.</p>
+      <hr>
+      <p>${building.upgrade}</p>
+      <div class='cost'>
+        <p>Cost:</p>
+        <ul>
+          ${Object.keys(building.cost).map(resource => `<li>${resource}: ${building.cost[resource]}</li>`).join("")}
+        </ul>
+    </div>`
+    : ""}`
   }
 
   startGame() {

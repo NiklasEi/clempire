@@ -347,6 +347,10 @@ class Production {
   calc() {
     return this.baseProduction * this.game.buildings[this.id] * this.multiplier;
   }
+
+  calcSingle() {
+    return this.baseProduction *  this.multiplier;
+  }
 }
 
 export default Clempire;

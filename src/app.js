@@ -1,6 +1,7 @@
 import Clempire from "./game.js"
 import World from "./world.js"
 import NumbersUtility from "./numbers.js"
+import CookieUtility from "./cookies.js";
 
 class Session {
   constructor() {
@@ -16,6 +17,16 @@ class Session {
   }
 
   initialize() {
+    // if this is the first time the player is playing, open the info
+    if(!CookieUtility.hasCookie("playedbefore")) {
+      showOverlay();
+      let overlay = document.querySelector(".overlay-content");
+      let firstChild = overlay.firstChild;
+      let firstTimeInfo = document.createElement("p");
+      firstTimeInfo.innerText = "Welcome to your first Clempire! You can reopen this info anytime by clicking on 'info' in the top-right. Have fun clicking for no reason at all ;)"
+      overlay.insertBefore(firstTimeInfo, firstChild);
+      CookieUtility.saveCookie("playedbefore", (new Date()).getTime());
+    }
     this.game = new Clempire(this);
     this.game.load.then(function () {
       window.addEventListener('resize', this.resizeHandler(), true);
@@ -153,7 +164,8 @@ class Session {
     let tooltipWrap = this.createTooltipWrap(display);
     let currentCount = Math.floor(this.game.resources.current[resource]).toString();
     let resourceData = this.game.resourcesData[resource]
-    tooltipWrap.appendChild(document.createTextNode(`${resourceData.lable}: ${currentCount}`));
+    tooltipWrap.innerHTML = `
+    <lable>${resourceData.lable}: </lable><span data-resource="${resource}">${currentCount}</span>`
   }
 
   displayUpgrades() {
@@ -184,8 +196,7 @@ class Session {
     let tooltipWrap = this.createTooltipWrap(display);
     tooltipWrap.innerHTML = `<h1>${upgrade.title}</h1>
     ${upgrade.description.split("\n").map(line => `<p>${line}</p>`).join("")}
-    ${upgrade.quote ? `<p class='quote'>"${upgrade.quote.text}"</p>` : ""}
-    ${upgrade.quote ? `<p class='originator'>- ${upgrade.quote.originator}</p>` : ""}
+    ${upgrade.quote ? `<div class="quote"><p class='text'>“${upgrade.quote.text}”</p><p class='originator'>- ${upgrade.quote.originator}</p></div>` : ""}
     ${upgrade.effectDescription ? `<p class='effectDescription'>${upgrade.effectDescription}</p>` : JSON.stringify(upgrade.effect)}
     <div class='cost'>
       <p>Cost:</p>
@@ -211,7 +222,15 @@ class Session {
   updateResources() {
     for (let i = 0; i < this.resourcesDisplay.children.length; i++) {
       let resourceDisplay = this.resourcesDisplay.children[i];
-      let currentCount = NumbersUtility.beautify(this.game.resources.current[resourceDisplay.dataset.resource]);
+      let resource = resourceDisplay.dataset.resource;
+      let currentCount = NumbersUtility.beautify(this.game.resources.current[resource]);
+      let tooltip = document.querySelector(".tooltip");
+      if (tooltip) {
+        let resourceCount = tooltip.querySelector(`[data-resource="${resource}"]`);
+        if(resourceCount) {
+          resourceCount.innerText = currentCount.toString();
+        }
+      }
       resourceDisplay.getElementsByTagName("span")[0].innerText = currentCount;
       if (i === this.titleRotation) {
         document.querySelector("head title").innerText = currentCount + " | Clempire";

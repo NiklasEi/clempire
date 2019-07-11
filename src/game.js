@@ -55,7 +55,7 @@ class Clempire {
 
   showUpgrades(upgrades) {
     this.shownUpgrades = this.shownUpgrades.concat(upgrades);
-    // ToDo sort shownUpgrades. By total price?
+    this.shownUpgrades.sort((a, b) => this.upgradeData[a].weight - this.upgradeData[b].weight);
     this.openUpgrades = this.openUpgrades.filter(id => !upgrades.includes(id))
     this.upgradeChanges = true; // set flag to render upgrades new
   }
@@ -161,6 +161,9 @@ class Clempire {
     // put IDs also into the upgrade obj
     for (let upgradeId in this.upgradeData) {
       this.upgradeData[upgradeId].id = parseInt(upgradeId);
+      if(!this.upgradeData[upgradeId].weight) {
+        this.upgradeData[upgradeId].weight = Object.keys(this.upgradeData[upgradeId].cost).reduce((sum, current) => sum + this.upgradeData[upgradeId].cost[current], 0);
+      }
     }
   }
 

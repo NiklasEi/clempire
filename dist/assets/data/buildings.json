@@ -21,8 +21,8 @@
     },
     "upgrade": "Click to pay Jack for an additional worker. Don't worry about the worker's food or housing, in this kind of game you never have to...",
     "baseCost": {
-      "wood": 75,
-      "stone": 75
+      "wood": 150,
+      "stone": 100
     },
     "offsetX": -70,
     "offsetY": 70,
@@ -41,7 +41,7 @@
     },
     "upgrade": "Fred doesn't like coworkes. Instead you can have him grow more arms ;)",
     "baseCost": {
-      "wood": 150,
+      "wood": 100,
       "stone": 150
     },
     "offsetX": 100,

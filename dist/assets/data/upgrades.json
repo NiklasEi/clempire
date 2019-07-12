@@ -41,6 +41,32 @@
       }
     }
   },
+  "102": {
+    "title": "Getting angry at Trees",
+    "description": "You know they didn't do anything to you... You know they are good for the world... They look so green and peacefull... But when you get angry at them it's much easier to put them down with an axe!",
+    "quote": {
+      "text": "Rocks are nicer anyways",
+      "originator": "Fred"
+    },
+    "icon": "assets/images/upgrades/wood/silver-axe.png",
+    "requirement": {
+      "updates": [101, 400],
+      "resources": {
+        "gathered": {
+          "wood": 4000
+        }
+      }
+    },
+    "cost": {
+      "wood": 5000,
+      "stone": 5000
+    },
+    "effect": {
+      "multiplier": {
+        "wood": 2
+      }
+    }
+  },
   "200": {
     "title": "Jack the Lumberjack",
     "description": "A big, bearded man walks out of the forest. He introduces himself as Jack and offers to help you with your wood production.",
@@ -81,7 +107,29 @@
       }
     },
     "cost": {
-      "wood": 250
+      "wood": 500,
+      "stone": 250
+    },
+    "effect": {
+      "multiplier": {
+        "lumberjack": 2
+      }
+    }
+  },
+  "202": {
+    "title": "No more smoking breaks",
+    "description": "After some issues with fire in dry woods, Jack put his foot down and forbit his workers to smoke during logging. It turns out they were massively slacking off before. There are even less insuries now. Who would have thought that swinging an axe with one hand (while the other one holds the cigarette) can be dangerous.",
+    "icon": "assets/images/upgrades/lumberjack/iron-lumberjack.png",
+    "requirement": {
+      "updates": [201],
+      "buildings": {
+        "lumberjack": 20
+      }
+    },
+    "cost": {
+      "wood": 5000,
+      "stone": 5000,
+      "coins": 15
     },
     "effect": {
       "multiplier": {
@@ -110,6 +158,59 @@
       }
     }
   },
+  "301": {
+    "title": "The cookie fairytale",
+    "description": "Someone told you that there is a perfect cookie hidden in one of the rocks around your town. You are going on a rampage looking for it.",
+    "icon": "assets/images/upgrades/stone/iron-pick.png",
+    "quote": {
+      "text": "Gotta break all rocks",
+      "originator": "You (with cookies in your eyes)"
+    },
+    "requirement": {
+      "resources": {
+        "updates": [300],
+        "gathered": {
+          "stone": 500
+        }
+      }
+    },
+    "cost": {
+      "wood": 500,
+      "stone": 750
+    },
+    "effect": {
+      "multiplier": {
+        "stone": 2
+      }
+    }
+  },
+  "302": {
+    "title": "Vibrant presence",
+    "description": "You got a flair that makes the rocks shiver. They can feel you coming. They crumble when you get too close.",
+    "icon": "assets/images/upgrades/stone/silver-pick.png",
+    "quote": {
+      "text": "Why is this happening to me?",
+      "originator": "You"
+    },
+    "requirement": {
+      "updates": [301],
+      "resources": {
+        "gathered": {
+          "stone": 4000
+        }
+      }
+    },
+    "cost": {
+      "wood": 5000,
+      "stone": 5000,
+      "coins": 50
+    },
+    "effect": {
+      "multiplier": {
+        "stone": 2
+      }
+    }
+  },
   "400": {
     "title": "Fred the stonecutter",
     "description": "One of Jack's helpers, Fred, seems to be more into rocks than trees. After Jack caught him hugging a large stone, he got fired... Couldn't you use a stonecutter?",
@@ -121,8 +222,8 @@
       }
     },
     "cost": {
-      "stone": 150,
-      "wood": 150
+      "wood": 5000,
+      "stone": 5000
     },
     "effect": {
       "build": {
@@ -132,7 +233,7 @@
   },
   "401": {
     "title": "The high note",
-    "description": "Fred loves to sing while cutting stone. He just perfected the high notes. They make the rocks crack!",
+    "description": "Fred loves to sing while cutting stone. He just perfected the high notes. They make rock crumble into nice square stone blocks. What a mad skill...",
     "icon": "assets/images/upgrades/stonecutter/bronze-stonecutter.png",
     "requirement": {
       "buildings": {
@@ -142,6 +243,27 @@
     "cost": {
       "stone": 400,
       "wood": 250
+    },
+    "effect": {
+      "multiplier": {
+        "stonecutter": 2
+      }
+    }
+  },
+  "402": {
+    "title": "Helicopter swing",
+    "description": "One of Fred's workers - let's call him Tim - came up with a mad move to be faster at stone cutting. He swings his pickaxe in circles over his head with increasing speed until it buzzes. Then he just runs through rocks and cuts them all.",
+    "icon": "assets/images/upgrades/stonecutter/iron-stonecutter.png",
+    "requirement": {
+      "updates": [401],
+      "buildings": {
+        "stonecutter": 20
+      }
+    },
+    "cost": {
+      "stone": 6000,
+      "wood": 6000,
+      "coins": 20
     },
     "effect": {
       "multiplier": {
@@ -171,8 +293,9 @@
       }
     },
     "cost": {
-      "coins": 100,
-      "stone": 500
+      "coins": 50,
+      "stone": 5000,
+      "wood": 2500
     },
     "weight": 10000,
     "effect": {
@@ -206,7 +329,7 @@
     },
     "effect": {
       "game": {
-        "goldProbability": 0.05
+        "goldProbability": 0.02
       }
     }
   }

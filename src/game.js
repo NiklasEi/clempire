@@ -11,7 +11,7 @@ class Clempire {
     let particlesCanvas = document.getElementById("particles");
     this.particles = new Particles(particlesCanvas)
     this.shownUpgrades = [];
-    this.goldProbability = 0.01;
+    this.goldProbability = 0.005;
     this.autoSaveIntervall = 1 * 60 * 1000; // autosave every minute
     this.gameIntervall = 1000; // autosave every minute
     this.load = new Promise(function (resolve, reject) {

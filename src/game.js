@@ -23,9 +23,15 @@ class Clempire {
         this.gameIntervallId = setInterval(this.gameTick.bind(this), this.gameIntervall);
         this.testingStuff(); // ToDo: remove!! it's dev stuff
         console.log(`... done in ${((new Date()).getTime() - now)}ms`);
+        this.audio.addSound("background", "assets/sounds/background.ogg", this.startBackgroundMusic.bind(this))
         resolve()
       }.bind(this));
     }.bind(this));
+  }
+
+  startBackgroundMusic() {
+    console.log("play")
+    this.audio.playSound("background");
   }
 
   gameTick() {

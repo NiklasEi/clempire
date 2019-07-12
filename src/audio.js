@@ -10,6 +10,7 @@ class AudioPlayer {
         this.worker.onmessage = function (e) {
           this.audioContext.decodeAudioData(e.data.response, function (buffer) {
             this.sounds[e.data.id].buffer = buffer;
+            if(this.sounds[e.data.id].callback)this.sounds[e.data.id].callback();
           }.bind(this), this.onError);
         }.bind(this);
       } else {
@@ -21,10 +22,11 @@ class AudioPlayer {
     }
   }
 
-  addSound(id, url) {
+  addSound(id, url, callback = undefined) {
     if (!this.audioContext) return;
     this.sounds[id] = new Sound(url, id);
     this.sounds[id].prepare(this.worker);
+    this.sounds[id].callback = callback;
   }
 
   playSound(id) {

@@ -167,8 +167,8 @@
       "originator": "You (with cookies in your eyes)"
     },
     "requirement": {
+      "updates": [300],
       "resources": {
-        "updates": [300],
         "gathered": {
           "stone": 500
         }
@@ -222,8 +222,8 @@
       }
     },
     "cost": {
-      "wood": 5000,
-      "stone": 5000
+      "wood": 250,
+      "stone": 200
     },
     "effect": {
       "build": {
@@ -241,8 +241,8 @@
       }
     },
     "cost": {
-      "stone": 400,
-      "wood": 250
+      "stone": 500,
+      "wood": 500
     },
     "effect": {
       "multiplier": {
@@ -272,6 +272,32 @@
     }
   },
   "1000": {
+    "title": "Lucky bastard",
+    "description": "You found gold while mining stone! Now that you know what to look for, you should spot it more easily.",
+    "quote": {
+      "text": "Gold makes the ugly beautiful.",
+      "originator": "Molière"
+    },
+    "effectDescription" : "You can now find gold more often while mining stone",
+    "icon": "assets/images/upgrades/lucky.png",
+    "requirement": {
+      "resources": {
+        "gathered": {
+          "coins": 1
+        }
+      }
+    },
+    "weight": 1000,
+    "cost": {
+      "coins": 1
+    },
+    "effect": {
+      "game": {
+        "goldProbability": 0.02
+      }
+    }
+  },
+  "1100": {
     "title": "Spinach",
     "description": "This stuff is pure power!",
     "quote": {
@@ -304,32 +330,6 @@
         "lumberjack": 2,
         "wood": 2,
         "stone": 2
-      }
-    }
-  },
-  "1100": {
-    "title": "Lucky bastard",
-    "description": "You found gold while mining stone! Now that you know what to look for, you should spot it more easily.",
-    "quote": {
-      "text": "Gold makes the ugly beautiful.",
-      "originator": "Molière"
-    },
-    "effectDescription" : "You can now find gold more often while mining stone",
-    "icon": "assets/images/upgrades/lucky.png",
-    "requirement": {
-      "resources": {
-        "gathered": {
-          "coins": 1
-        }
-      }
-    },
-    "weight": 1000,
-    "cost": {
-      "coins": 1
-    },
-    "effect": {
-      "game": {
-        "goldProbability": 0.02
       }
     }
   }

@@ -24,5 +24,10 @@ npm run watch
 
 ## Credits
 
-Rock image to click on: [Design vector created by macrovector - www.freepik.com](https://www.freepik.com/free-photos-vectors/design")
+Rock image [created by macrovector - www.freepik.com](https://www.freepik.com/free-photos-vectors/design) see [here](https://www.freepik.com/free-vector/design-groups-rocks-stones-boulders_3792126.htm).
+
 Huge thanks to [Kenney](http://kenney.nl) for creating and CC0-ing most of the used images for the background and the upgrades.
+
+Background music (CC BY-NC-SA 4.0): 
+- [Dee Yan Key - Arrival of the Ghosts](http://freemusicarchive.org/music/Dee_Yan-Key/just_a_dream/03--Dee_Yan-Key-Arrival_of_the_Ghosts)
+- [Dee Yan Key - Con brio vivacissimo](http://freemusicarchive.org/music/Dee_Yan-Key/Symphonia_Catharina/01--Dee_Yan-Key-Con_brio_vivacissimo)

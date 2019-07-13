@@ -1,6 +1,6 @@
 class CookieUtility {
-  static saveCookie(name, value, date = "Tue, 10 Jul 2029 13:23:23 GMT", path = "/") {
-    document.cookie = name + "=" + value + ";expires=" + date + ";path=" + path;
+  static saveCookie(name, value, expiresInYears = 10, path = "/") {
+    document.cookie = name + "=" + value + ";expires=" + new Date(new Date().getTime() + expiresInYears * 365 * 24 * 3600 * 1000).toGMTString() + ";path=" + path;
   }
 
   static getCookie(cname) {

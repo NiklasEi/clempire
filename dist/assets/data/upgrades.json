@@ -127,9 +127,9 @@
       }
     },
     "cost": {
-      "wood": 5000,
+      "wood": 6000,
       "stone": 5000,
-      "coins": 15
+      "coins": 20
     },
     "effect": {
       "multiplier": {
@@ -175,8 +175,8 @@
       }
     },
     "cost": {
-      "wood": 500,
-      "stone": 750
+      "wood": 250,
+      "stone": 500
     },
     "effect": {
       "multiplier": {
@@ -203,7 +203,7 @@
     "cost": {
       "wood": 5000,
       "stone": 5000,
-      "coins": 50
+      "coins": 10
     },
     "effect": {
       "multiplier": {
@@ -262,7 +262,7 @@
     },
     "cost": {
       "stone": 6000,
-      "wood": 6000,
+      "wood": 5000,
       "coins": 20
     },
     "effect": {
@@ -287,7 +287,7 @@
         }
       }
     },
-    "weight": 1000,
+    "weight": 2000,
     "cost": {
       "coins": 1
     },
@@ -323,7 +323,7 @@
       "stone": 5000,
       "wood": 2500
     },
-    "weight": 10000,
+    "weight": 20000,
     "effect": {
       "multiplier": {
         "stonecutter": 2,

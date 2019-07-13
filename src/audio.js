@@ -29,12 +29,13 @@ class AudioPlayer {
     this.sounds[id].callback = callback;
   }
 
-  playSound(id) {
+  playSound(id, loop=false) {
     if (!this.audioContext) return;
     let sound = this.sounds[id];
     let source = this.audioContext.createBufferSource();
     source.buffer = sound.buffer;
     source.connect(this.audioContext.destination);
+    if (loop) source.loop = true;
     source.start(0);
   }
 

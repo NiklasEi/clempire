@@ -18,15 +18,16 @@ class Session {
 
   initialize() {
     // if this is the first time the player is playing, open the info
-    if (!CookieUtility.hasCookie("playedbefore")) {
+    if (!CookieUtility.hasCookie("lastTimePlayed")) {
+      // eslint-disable-next-line no-undef
       showOverlay();
       let overlay = document.querySelector(".overlay-content");
       let firstChild = overlay.firstChild;
       let firstTimeInfo = document.createElement("p");
       firstTimeInfo.innerText = "Welcome to your first Clempire! You can reopen this info anytime by clicking on 'info' in the top-right. Have fun clicking for no reason at all ;)"
       overlay.insertBefore(firstTimeInfo, firstChild);
-      CookieUtility.saveCookie("playedbefore", (new Date()).getTime());
     }
+    CookieUtility.saveCookie("lastTimePlayed", new Date().getTime());
     this.game = new Clempire(this);
     this.game.load.then(function () {
       window.addEventListener('resize', this.resizeHandler(), true);

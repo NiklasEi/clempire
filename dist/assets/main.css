@@ -309,3 +309,38 @@ footer a {
 .alert-close:hover:after {
   border-top: solid 2px #d8d8d8;
 }
+
+header .menu {
+  height: 25px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+header .music,
+header .sound {
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  margin-left: 15px; 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+header .music {
+  background-image: url(icons/on.png)
+}
+
+header .sound {
+  background-image: url(icons/sound_on.png)
+}
+
+header .music.off {
+  background-image: url(icons/off.png)
+}
+
+header .sound.off {
+  background-image: url(icons/sound_off.png)
+}

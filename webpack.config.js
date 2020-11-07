@@ -1,6 +1,6 @@
-var webpack = require('webpack');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const TerserPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -8,9 +8,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: 'clempire.bundle.js',
-    publicPath: ''
   },
-  devtool: 'source-map',
+  // devtool: 'source-map',
+  devtool: false,
   module: {
     rules: [
       {
@@ -22,21 +22,40 @@ module.exports = {
       }
     ]
   },
-  watchOptions: {
-    ignored: ['dist', 'node_modules', 'index.html']
+
+  devServer: {
+    contentBase: path.resolve(__dirname, 'dist'),
+    writeToDisk: true,
+    open: true,
   },
+
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        {
+          from: 'index.html',
+        },
+        {
+          from: 'overlay.js',
+        },
+        {
+          from: 'soundWorker.js',
+        },
+        {
+          from: 'assets/**/*',
+        },
+      ],
+    })],
+
   optimization: {
-    minimize: true
+    minimize: true,
+    minimizer: [new TerserPlugin({
+      terserOptions: {
+        output: {
+          comments: false,
+        },
+      },
+      extractComments: false,
+    })]
   },
-  // plugins: [
-  //   new HtmlWebpackPlugin({
-  //     title: 'Setting up webpack 4',
-  //     template: 'dist/index.html',
-  //     inject: false,
-  //     minify: {
-  //       removeComments: false,
-  //       collapseWhitespace: false
-  //     }
-  //   })
-  // ]
 }

@@ -21,12 +21,6 @@ class Session {
     if (!CookieUtility.hasCookie('lastTimePlayed')) {
       // eslint-disable-next-line no-undef
       showOverlay();
-      const overlay = document.querySelector('.overlay-content');
-      const firstChild = overlay.firstChild;
-      const firstTimeInfo = document.createElement('p');
-      firstTimeInfo.innerText =
-        "Welcome to your first Clempire! You can reopen this info anytime by clicking on 'info' in the top-right. Have fun clicking for no reason at all ;)";
-      overlay.insertBefore(firstTimeInfo, firstChild);
     }
     CookieUtility.saveCookie('lastTimePlayed', new Date().getTime());
     this.game = new Clempire(this);

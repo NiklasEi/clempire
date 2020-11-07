@@ -74,7 +74,7 @@
       "text": "For a moment I was really scared",
       "originator": "You"
     },
-    "effectDescription" : "Give Jack supplies to settle down and he'll produce wood for you.",
+    "effectDescription": "Give Jack supplies to settle down and he'll produce wood for you.",
     "icon": "assets/images/upgrades/lumberjack/lumberjack.png",
     "requirement": {
       "resources": {
@@ -278,7 +278,7 @@
       "text": "Gold makes the ugly beautiful.",
       "originator": "Molière"
     },
-    "effectDescription" : "You can now find gold more often while mining stone",
+    "effectDescription": "You can now find gold more often while mining stone",
     "icon": "assets/images/upgrades/lucky.png",
     "requirement": {
       "resources": {
@@ -304,7 +304,7 @@
       "text": "I'm strong to the finich, 'cause I eats me Spinach, I'm Popeye the sailor man! (toot, toot)",
       "originator": "Popeye"
     },
-    "effectDescription" : "A steady supply of spinach for your town doubles all production and clicking!\nIn case you are wondering... all the stone is needed to pave the road from the spinach fields to your town.",
+    "effectDescription": "A steady supply of spinach for your town doubles all production and clicking!\nIn case you are wondering... all the stone is needed to pave the road from the spinach fields to your town.",
     "icon": "assets/images/upgrades/spinach.png",
     "requirement": {
       "resources": {

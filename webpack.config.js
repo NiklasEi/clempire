@@ -4,10 +4,10 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: ['babel-polyfill','./src/app.js'],
+  entry: ['babel-polyfill', './src/app.js'],
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: 'clempire.bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'clempire.bundle.js'
   },
   // devtool: 'source-map',
   devtool: false,
@@ -17,7 +17,7 @@ module.exports = {
         test: /\.js$/,
         exclude: [/node_modules/, '/clempire.bundle.*'],
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader'
         }
       }
     ]
@@ -26,36 +26,39 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
     writeToDisk: true,
-    open: true,
+    open: true
   },
 
   plugins: [
     new CopyPlugin({
       patterns: [
         {
-          from: 'index.html',
+          from: 'index.html'
         },
         {
-          from: 'overlay.js',
+          from: 'overlay.js'
         },
         {
-          from: 'soundWorker.js',
+          from: 'soundWorker.js'
         },
         {
-          from: 'assets/**/*',
-        },
-      ],
-    })],
+          from: 'assets/**/*'
+        }
+      ]
+    })
+  ],
 
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin({
-      terserOptions: {
-        output: {
-          comments: false,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          output: {
+            comments: false
+          }
         },
-      },
-      extractComments: false,
-    })]
-  },
-}
+        extractComments: false
+      })
+    ]
+  }
+};

@@ -2,6 +2,10 @@
   "env": {
     "es6": true
   },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 8
+  },
   "plugins": ["eslint-plugin-import", "eslint-plugin-jsdoc", "eslint-plugin-prefer-arrow"],
   "rules": {
     "arrow-parens": ["off", "always"],
@@ -11,7 +15,6 @@
     "constructor-super": "error",
     "eol-last": "off",
     "eqeqeq": ["error", "smart"],
-    "guard-for-in": "error",
     "id-blacklist": [
       "error",
       "any",

@@ -1,32 +1,32 @@
 class NumbersUtility {
-  static beautify(number) {
-    if(number < 100) {
-      return this.cleanAndAttachPostFix(number, "");
-    } else if(number < 10000) {
-      return Math.floor(number).toString()
-    } else if (number < 1000000) {
-      number /= 1000;
-      return this.cleanAndAttachPostFix(number, "k");
-    } else if (number < 1000000000) {
-      number /= 1000000;
-      return this.cleanAndAttachPostFix(number, "M");
-    } else if (number < 1000000000000) {
-      number /= 1000000000000;
-      return this.cleanAndAttachPostFix(number, "G");
-    } else if (number < 1000000000000000) {
-      number /= 1000000000000000;
-      return this.cleanAndAttachPostFix(number, "T");
+  static beautify(numberToBeautify) {
+    if (numberToBeautify < 100) {
+      return this.cleanAndAttachPostFix(numberToBeautify, '');
+    } else if (numberToBeautify < 10000) {
+      return Math.floor(numberToBeautify).toString();
+    } else if (numberToBeautify < 1000000) {
+      numberToBeautify /= 1000;
+      return this.cleanAndAttachPostFix(numberToBeautify, 'k');
+    } else if (numberToBeautify < 1000000000) {
+      numberToBeautify /= 1000000;
+      return this.cleanAndAttachPostFix(numberToBeautify, 'M');
+    } else if (numberToBeautify < 1000000000000) {
+      numberToBeautify /= 1000000000000;
+      return this.cleanAndAttachPostFix(numberToBeautify, 'G');
+    } else if (numberToBeautify < 1000000000000000) {
+      numberToBeautify /= 1000000000000000;
+      return this.cleanAndAttachPostFix(numberToBeautify, 'T');
     }
-    return Math.floor(number).toString();
+    return Math.floor(numberToBeautify).toString();
   }
 
-  static cleanAndAttachPostFix(number, postfix) {
-    if (number % 1 > 0.07) {
-      return number.toFixed(1) + postfix;
+  static cleanAndAttachPostFix(numberToClean, postfix) {
+    if (numberToClean % 1 > 0.07) {
+      return numberToClean.toFixed(1) + postfix;
     } else {
-      return Math.floor(number).toString() + postfix;
+      return Math.floor(numberToClean).toString() + postfix;
     }
   }
 }
 
-export default NumbersUtility
+export default NumbersUtility;

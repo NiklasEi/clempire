@@ -15,18 +15,21 @@ class Particles {
   }
 
   tick() {
-    let delta = this.delta;
-    this.particles = this.particles.map(particle => particle.age(delta).linger()).filter(particle => (particle.liveTime > 0 && particle.y > 0)).sort((a, b) => a.liveTime - b.liveTime);
-    let ctx = this.canvas.getContext("2d");
+    const delta = this.delta;
+    this.particles = this.particles
+      .map((particle) => particle.age(delta).linger())
+      .filter((particle) => particle.liveTime > 0 && particle.y > 0)
+      .sort((a, b) => a.liveTime - b.liveTime);
+    const ctx = this.canvas.getContext('2d');
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    ctx.font = "20px Arial";
-    this.particles.forEach(function(element) {
+    ctx.font = '20px Arial';
+    this.particles.forEach(function (element) {
       ctx.save();
-      if(element.liveTime < 2000) ctx.globalAlpha = element.liveTime / 2000;
+      if (element.liveTime < 2000) ctx.globalAlpha = element.liveTime / 2000;
       ctx.drawImage(element.img, element.x - element.img.width / 2, element.y - element.img.height / 2);
       ctx.fillText(element.text, element.x + element.img.width / 2 + 2, element.y);
       ctx.restore();
-    }.bind(this));
+    });
   }
 }
 

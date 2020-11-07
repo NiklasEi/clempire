@@ -1,7 +1,7 @@
-onmessage = function(e) {
-  let request = new XMLHttpRequest();
+onmessage = function (e) {
+  const request = new XMLHttpRequest();
   request.open('GET', e.data.url, false);
   request.responseType = 'arraybuffer';
   request.send();
-  postMessage({id: e.data.id, response: request.response})
-}
+  postMessage({ id: e.data.id, response: request.response });
+};

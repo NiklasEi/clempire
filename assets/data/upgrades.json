@@ -21,7 +21,7 @@
   },
   "101": {
     "title": "Axe lessons",
-    "description": "You asked Jack for some advice with your axe handling. He simply told you to not use the blund side, but the sharp one. You dummy...",
+    "description": "You asked Jack for some advice with your axe handling. He simply told you to not use the blunt side, but the sharp one. You dummy...",
     "icon": "assets/images/upgrades/wood/iron-axe.png",
     "requirement": {
       "updates": [200],
@@ -43,7 +43,7 @@
   },
   "102": {
     "title": "Getting angry at Trees",
-    "description": "You know they didn't do anything to you... You know they are good for the world... They look so green and peacefull... But when you get angry at them it's much easier to put them down with an axe!",
+    "description": "You know they didn't do anything to you... You know they are good for the world... They look so green and peaceful... But when you get angry at them it's much easier to put them down with an axe!",
     "quote": {
       "text": "Rocks are nicer anyways",
       "originator": "Fred"
@@ -118,7 +118,7 @@
   },
   "202": {
     "title": "No more smoking breaks",
-    "description": "After some issues with fire in dry woods, Jack put his foot down and forbit his workers to smoke during logging. It turns out they were massively slacking off before. There are even less insuries now. Who would have thought that swinging an axe with one hand (while the other one holds the cigarette) can be dangerous.",
+    "description": "After some issues with fire in dry woods, Jack put his foot down and forbid his workers to smoke during logging. It turns out they were massively slacking off before. There are even less injuries now. Who would have thought that swinging an axe with one hand (while the other one holds the cigarette) can be dangerous.",
     "icon": "assets/images/upgrades/lumberjack/iron-lumberjack.png",
     "requirement": {
       "updates": [201],
@@ -212,8 +212,8 @@
     }
   },
   "400": {
-    "title": "Fred the stonecutter",
-    "description": "One of Jack's helpers, Fred, seems to be more into rocks than trees. After Jack caught him hugging a large stone, he got fired... Couldn't you use a stonecutter?",
+    "title": "Fred the stone cutter",
+    "description": "One of Jack's helpers, Fred, seems to be more into rocks than trees. After Jack caught him hugging a large stone, he got fired... Couldn't you use a stone cutter?",
     "icon": "assets/images/upgrades/stonecutter/stonecutter.png",
     "effectDescription": "Build a house for Fred and he'll produce stone for you.",
     "requirement": {
@@ -301,7 +301,7 @@
     "title": "Spinach",
     "description": "This stuff is pure power!",
     "quote": {
-      "text": "I'm strong to the finich, 'cause I eats me Spinach, I'm Popeye the sailor man! (toot, toot)",
+      "text": "I'm strong to the finish, 'cause I eats me Spinach, I'm Popeye the sailor man! (toot, toot)",
       "originator": "Popeye"
     },
     "effectDescription": "A steady supply of spinach for your town doubles all production and clicking!\nIn case you are wondering... all the stone is needed to pave the road from the spinach fields to your town.",

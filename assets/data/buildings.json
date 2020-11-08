@@ -33,13 +33,13 @@
     }
   },
   "stonecutter": {
-    "title": "Stonecutter",
+    "title": "Stone cutter",
     "description": "Fred works here and produces stone for you.",
     "img": "assets/images/town/stonecutter.png",
     "production": {
       "stone": 0.1
     },
-    "upgrade": "Fred doesn't like coworkes. Instead you can have him grow more arms ;)",
+    "upgrade": "Fred doesn't like coworkers. Instead you can have him grow more arms ;)",
     "baseCost": {
       "wood": 100,
       "stone": 150

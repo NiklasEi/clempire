@@ -137,6 +137,31 @@
       }
     }
   },
+  "203": {
+    "title": "Double bladed axe",
+    "description": "I mean... It's totally logical, isn't it? More blade => more logs",
+    "icon": "assets/images/upgrades/lumberjack/silver-lumberjack.png",
+    "quote": {
+      "text": "I don't think you understand how this works",
+      "originator": "Jack the lumberjack"
+    },
+    "requirement": {
+      "updates": [202],
+      "buildings": {
+        "lumberjack": 50
+      }
+    },
+    "cost": {
+      "wood": 50000,
+      "stone": 40000,
+      "coins": 25
+    },
+    "effect": {
+      "multiplier": {
+        "lumberjack": 2
+      }
+    }
+  },
   "300": {
     "title": "Get better at stone cutting...",
     "description": "If you hit harder more stones break of! Who would have thought?",
@@ -271,6 +296,31 @@
       }
     }
   },
+  "403": {
+    "title": "Helpful Ancestors",
+    "description": "Fred's family has had quite a few unfortunate deaths in the last generations. Sounds sad, but can be quite helpful. Fred hired a witch to bring their lingering ghosts back to live. They will be helpful for work.",
+    "icon": "assets/images/upgrades/stonecutter/silver-stonecutter.png",
+    "quote": {
+      "text": "Can we please let my aunt be? She scares me!",
+      "originator": "Fred the stonecutter"
+    },
+    "requirement": {
+      "updates": [402],
+      "buildings": {
+        "stonecutter": 50
+      }
+    },
+    "cost": {
+      "stone": 50000,
+      "wood": 40000,
+      "coins": 50
+    },
+    "effect": {
+      "multiplier": {
+        "stonecutter": 2
+      }
+    }
+  },
   "1000": {
     "title": "Lucky bastard",
     "description": "You found gold while mining stone! Now that you know what to look for, you should spot it more easily.",
@@ -294,6 +344,33 @@
     "effect": {
       "game": {
         "goldProbability": 0.02
+      }
+    }
+  },
+  "1050": {
+    "title": "A Raise",
+    "description": "The most simple way of improving your workers efficiency... You offered them a raise if they double their production.",
+    "quote": {
+      "text": "Thanks man...",
+      "originator": "Fred"
+    },
+    "effectDescription": "Double the productivity of all your workers",
+    "icon": "assets/images/upgrades/raise.png",
+    "requirement": {
+      "updates": [203, 403],
+      "buildings": {
+        "stonecutter": 50,
+        "lumberjack": 50
+      }
+    },
+    "weight": 3000,
+    "cost": {
+      "coins": 200
+    },
+    "effect": {
+      "multiplier": {
+        "stonecutter": 2,
+        "lumberjack": 2
       }
     }
   },
